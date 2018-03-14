@@ -1,0 +1,7 @@
+SELECT ?p (COUNT(DISTINCT ?s) as ?c)
+WHERE {
+  ?s a <http://dati.beniculturali.it/cis/CulturalInstituteOrSite> .
+  ?s ?p ?o .
+}
+GROUP BY ?p
+ORDER BY DESC (?c)
