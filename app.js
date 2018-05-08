@@ -43,7 +43,8 @@ var callWikidata = function (arr, index) {
 
 var askWikidata = function(elem, cb) {
     console.log("Asking Wikidata " + elem.label.value);
-    //console.log(queries.queryWikidata(elem))
+    //console.log(elem)
+    console.log(queries.queryWikidata(elem))
 
     let endpointWikidata = {
         url: "https://query.wikidata.org/sparql?query=" + encodeURIComponent(queries.queryWikidata(elem)),
@@ -56,8 +57,33 @@ var askWikidata = function(elem, cb) {
             console.log('error:', error); // Print the error if one occurred
         } else {
             let arr = JSON.parse(body).results.bindings;
-            console.log(arr);
+            //console.log(arr);
+
+            //Nothing found
+            if (arr.length === 0) {
+                createNewWikidataItem(elem);
+            //Found exactly one
+            } else if (arr.length === 1) {
+                updateWikidataItem(arr[0].item.value, elem);
+            //Found more than one
+            } else if (arr.length > 1) {
+                //If one is predominant
+                if (arr[0].c.value > arr[1].c.value) {
+                    updateWikidataItem(arr[0].item.value, elem);
+                //If no consensus
+                } else {
+                    createNewWikidataItem(elem);
+                }
+            }
             cb();
         }
     });
+}
+
+var createNewWikidataItem = function (elem) {
+    console.log("Creating new Wikidata item");
+}
+
+var updateWikidataItem = function (wd, elem) {
+    console.log("Update Wikidata item " + wd);
 }

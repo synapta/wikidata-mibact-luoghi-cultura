@@ -24,20 +24,20 @@ exports.queryMibact = `
         OPTIONAL {
             ?s cis:hasSite ?sede .
             ?sede cis:hasAddress ?address .
-            ?address cis:postName ?comune .
-            ?address cis:adminUnitL2 ?provincia .
-            ?address cis:adminUnitL1 ?stato .
-            ?address cis:postCode ?cap .
-            ?address cis:fullAddress ?fullAddress .
+            OPTIONAL { ?address cis:postName ?comune . }
+            OPTIONAL { ?address cis:adminUnitL2 ?provincia . }
+            OPTIONAL { ?address cis:adminUnitL1 ?stato . }
+            OPTIONAL { ?address cis:postCode ?cap . }
+            OPTIONAL { ?address cis:fullAddress ?fullAddress . }
         }
     }
-    LIMIT 100
+    offset 100 LIMIT 100
 `;
 
 exports.queryWikidata = function (item) {
     let start = `
         PREFIX geo: <http://www.bigdata.com/rdf/geospatial#>
-        
+
         SELECT ?item (COUNT(*) as ?c) WHERE {
           FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167836 } #categorie
           FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167410 } #disambigua
@@ -47,6 +47,7 @@ exports.queryWikidata = function (item) {
     let end = `
         }
         GROUP BY ?item
+        ORDER BY DESC (?c)
     `;
     let conds = [];
 
@@ -57,18 +58,56 @@ exports.queryWikidata = function (item) {
           SERVICE wikibase:mwapi {
             bd:serviceParam wikibase:api "Search" .
             bd:serviceParam wikibase:endpoint "www.wikidata.org" .
-            bd:serviceParam mwapi:srsearch "${item.label.value.replace(/"/g, '\"')}" .
+            bd:serviceParam mwapi:srsearch "${item.label.value.replace(/\"/g, '\\"').replace(/dell\'/g, '')}" .
             ?title wikibase:apiOutput mwapi:title .
           }
           BIND(URI(CONCAT("http://www.wikidata.org/entity/", ?title)) as ?item)
         }
       }
     `);
+    if (item.label !== undefined) conds.push(`{ ?item rdfs:label "${item.label.value.replace(/\"/g, '\\"').replace(/dell\'/g, '')}"@it }`);
+    if (item.label !== undefined && item.label.value.startsWith("Area archeologica di ")) {
+        conds.push(`
+          {
+            SELECT ?item
+            WHERE {
+              SERVICE wikibase:mwapi {
+                bd:serviceParam wikibase:api "Search" .
+                bd:serviceParam wikibase:endpoint "www.wikidata.org" .
+                bd:serviceParam mwapi:srsearch "${item.label.value.replace(/\"/g, '\\"').replace(/Area archeologica di /g, '')}" .
+                ?title wikibase:apiOutput mwapi:title .
+              }
+              BIND(URI(CONCAT("http://www.wikidata.org/entity/", ?title)) as ?item)
+              ?item wdt:P31 wd:Q839954 .
+            }
+          }
+        `);
+    }
+    if (item.label !== undefined && item.label.value.startsWith("Area archeologica ")) {
+        conds.push(`
+          {
+            SELECT ?item
+            WHERE {
+              SERVICE wikibase:mwapi {
+                bd:serviceParam wikibase:api "Search" .
+                bd:serviceParam wikibase:endpoint "www.wikidata.org" .
+                bd:serviceParam mwapi:srsearch "${item.label.value.replace(/\"/g, '\\"').replace(/Area archeologica /g, '')}" .
+                ?title wikibase:apiOutput mwapi:title .
+              }
+              BIND(URI(CONCAT("http://www.wikidata.org/entity/", ?title)) as ?item)
+              ?item wdt:P31 wd:Q839954 .
+            }
+          }
+        `);
+    }
     if (item.email !== undefined) conds.push(`{ ?item wdt:P968 "${item.email.value.replace(/\s/g, '')}" }`);
     if (item.telephone !== undefined) conds.push(`{ ?item wdt:P1329 "${item.telephone.value}" }`);
     if (item.fax !== undefined) conds.push(`{ ?item wdt:P2900 "${item.fax.value}" }`);
-    if (item.website !== undefined) conds.push(`{ ?item wdt:P856 <${item.website.value.replace(/\s/g, '')}> }`);
-    if (item.long !== undefined && item.lat !== undefined) conds.push(`
+    if (item.owl !== undefined) conds.push(`{ <${item.owl.value.replace("http://it.dbpedia.org/resource/","https://it.wikipedia.org/wiki/")}> schema:about ?item }`);
+    if (item.website !== undefined) conds.push(`{ ?item wdt:P856 <${item.website.value.replace(/\s/g, '').replace(/\/$/,'')}> }`); //senza slash finale
+    if (item.website !== undefined) conds.push(`{ ?item wdt:P856 <${item.website.value.replace(/\s/g, '').replace(/\/$/,'')}/> }`); //con slash finale
+    if (item.comune !== undefined) conds.push(`{ ?item wdt:P131/rdfs:label "${item.comune.value}"@it }`);
+    /*if (item.long !== undefined && item.lat !== undefined  && item.long.value !== "" && item.lat.value !== "") conds.push(`
       {
         SELECT ?item WHERE {
           SERVICE geo:search {
@@ -81,7 +120,7 @@ exports.queryWikidata = function (item) {
           }
         }
       }
-    `);
+    `);*/
 
     for (let i = 0; i < conds.length; i++) {
         start += conds[i] + " UNION "
