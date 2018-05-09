@@ -31,75 +31,53 @@ exports.queryMibact = `
             OPTIONAL { ?address cis:fullAddress ?fullAddress . }
         }
     }
-    offset 204 LIMIT 100
+    offset 100 LIMIT 100
 `;
 
 exports.queryWikidata = function (item) {
+    item.label.value = item.label.value.replace(/\"/g, '\\"')
+                                       .replace(/dell\'/g, '');
     let start = `
         PREFIX geo: <http://www.bigdata.com/rdf/geospatial#>
 
         SELECT ?item (COUNT(*) as ?c) WHERE {
-          FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167836 } #categorie
-          FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167410 } #disambigua
-          FILTER NOT EXISTS { ?item wdt:P31 wd:Q13442814 } #articoli scientifici
+          {
+            SELECT ?item {
+              FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167836 } #categorie
+              FILTER NOT EXISTS { ?item wdt:P31 wd:Q4167410 } #disambigua
+              FILTER NOT EXISTS { ?item wdt:P31 wd:Q13442814 } #articoli scientifici
+              FILTER NOT EXISTS { ?item wdt:P17 wd:Q39 } #Svizzera
 
+              {
+                SELECT ?item
+                WHERE {
+                  SERVICE wikibase:mwapi {
+                    bd:serviceParam wikibase:api "Search" .
+                    bd:serviceParam wikibase:endpoint "www.wikidata.org" .
+                    bd:serviceParam mwapi:srsearch "${item.label.value}" .
+                    ?title wikibase:apiOutput mwapi:title .
+                  }
+                  BIND(URI(CONCAT("http://www.wikidata.org/entity/", ?title)) as ?item)
+                }
+              }
+            }
+          }
+          {
     `;
     let end = `
-        }
+        }}
         GROUP BY ?item
         ORDER BY DESC (?c)
+        LIMIT 10
     `;
     let conds = [];
 
-    if (item.label !== undefined) conds.push(`
-      {
-        SELECT ?item
-        WHERE {
-          SERVICE wikibase:mwapi {
-            bd:serviceParam wikibase:api "Search" .
-            bd:serviceParam wikibase:endpoint "www.wikidata.org" .
-            bd:serviceParam mwapi:srsearch "${item.label.value.replace(/\"/g, '\\"').replace(/dell\'/g, '')}" .
-            ?title wikibase:apiOutput mwapi:title .
-          }
-          BIND(URI(CONCAT("http://www.wikidata.org/entity/", ?title)) as ?item)
-        }
-      }
-    `);
-    if (item.label !== undefined) conds.push(`{ ?item rdfs:label "${item.label.value.replace(/\"/g, '\\"')}"@it }`);
-    if (item.label !== undefined && item.label.value.startsWith("Area archeologica di ")) {
-        conds.push(`
-          {
-            SELECT ?item
-            WHERE {
-              SERVICE wikibase:mwapi {
-                bd:serviceParam wikibase:api "Search" .
-                bd:serviceParam wikibase:endpoint "www.wikidata.org" .
-                bd:serviceParam mwapi:srsearch "${item.label.value.replace(/\"/g, '\\"').replace(/Area archeologica di /g, '')}" .
-                ?title wikibase:apiOutput mwapi:title .
-              }
-              BIND(URI(CONCAT("http://www.wikidata.org/entity/", ?title)) as ?item)
-              ?item wdt:P31 wd:Q839954 .
-            }
-          }
-        `);
-    }
-    if (item.label !== undefined && item.label.value.startsWith("Area archeologica ")) {
-        conds.push(`
-          {
-            SELECT ?item
-            WHERE {
-              SERVICE wikibase:mwapi {
-                bd:serviceParam wikibase:api "Search" .
-                bd:serviceParam wikibase:endpoint "www.wikidata.org" .
-                bd:serviceParam mwapi:srsearch "${item.label.value.replace(/\"/g, '\\"').replace(/Area archeologica /g, '')}" .
-                ?title wikibase:apiOutput mwapi:title .
-              }
-              BIND(URI(CONCAT("http://www.wikidata.org/entity/", ?title)) as ?item)
-              ?item wdt:P31 wd:Q839954 .
-            }
-          }
-        `);
-    }
+    if (item.label !== undefined) conds.push(`{ ?item rdfs:label "${item.label.value}"@it }`);
+    if (item.label !== undefined && item.label.value.includes(" S. ")) conds.push(`{ ?item rdfs:label "${item.label.value.replace(/\"/g, '\\"').replace(/ S. /g, ' San ')}"@it }`);
+    if (item.label !== undefined && item.label.value.includes(" S. ")) conds.push(`{ ?item rdfs:label "${item.label.value.replace(/\"/g, '\\"').replace(/ S. /g, ' Santa ')}"@it }`);
+    if (item.label !== undefined && item.label.value.includes(" SS. ")) conds.push(`{ ?item rdfs:label "${item.label.value.replace(/\"/g, '\\"').replace(/ SS. /g, ' Santi ')}"@it }`);
+    if (item.label !== undefined && item.label.value.startsWith("Area archeologica ")) conds.push(`{ ?item wdt:P31 wd:Q839954 }`);
+    
     if (item.email !== undefined) conds.push(`{ ?item wdt:P968 "${item.email.value.replace(/\s/g, '')}" }`);
     if (item.telephone !== undefined) conds.push(`{ ?item wdt:P1329 "${item.telephone.value}" }`);
     if (item.fax !== undefined) conds.push(`{ ?item wdt:P2900 "${item.fax.value}" }`);
@@ -107,6 +85,7 @@ exports.queryWikidata = function (item) {
     if (item.website !== undefined) conds.push(`{ ?item wdt:P856 <${item.website.value.replace(/\s/g, '').replace(/\/$/,'')}> }`); //senza slash finale
     if (item.website !== undefined) conds.push(`{ ?item wdt:P856 <${item.website.value.replace(/\s/g, '').replace(/\/$/,'')}/> }`); //con slash finale
     if (item.comune !== undefined) conds.push(`{ ?item wdt:P131/rdfs:label "${item.comune.value}"@it }`);
+    if (item.id !== undefined) conds.push(`{ ?item wdt:P528 "${item.id.value}" }`);
     /*if (item.long !== undefined && item.lat !== undefined  && item.long.value !== "" && item.lat.value !== "") conds.push(`
       {
         SELECT ?item WHERE {

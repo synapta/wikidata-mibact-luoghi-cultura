@@ -1,6 +1,6 @@
 var credential = require('./credential.js');
 var queries = require('./queries.js');
-var request = require('request');
+var request = require('requestretry');
 
 const config = {
   // One authorization mean is required
@@ -10,7 +10,7 @@ const config = {
   password: credential.password,
 
   // Optional
-  verbose: true, // Default: false
+  verbose: false, // Default: false
   wikibaseInstance: 'https://www.wikidata.org/w/api.php',
   userAgent: `wikidata-edit (https://github.com/maxlath/wikidata-edit)`
 }
@@ -21,8 +21,10 @@ let endpointMibactStart = {
     url: "http://dati.beniculturali.it/sparql?query=" + encodeURIComponent(queries.queryMibact),
     headers: {
       'Accept': 'application/json'
-    }
+    },
+    retryDelay: 3000
 };
+console.log("Asking Mibact...");
 request(endpointMibactStart, function (error, response, body) {
     if (error) {
         console.log('error:', error); // Print the error if one occurred
@@ -50,7 +52,8 @@ var askWikidata = function(elem, cb) {
         url: "https://query.wikidata.org/sparql?query=" + encodeURIComponent(queries.queryWikidata(elem)),
         headers: {
           'Accept': 'application/json'
-        }
+        },
+        retryDelay: 5000
     };
     request(endpointWikidata, function (error, response, body) {
         if (error) {
