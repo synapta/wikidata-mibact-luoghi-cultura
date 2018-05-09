@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" crossorigin="anonymous">
+
+    <title>Wikidata MIBACT Luoghi della Cultura</title>
+  </head>
+  <body>
+    <h1>Wikidata MIBACT Luoghi della Cultura</h1>
+
+    <div class="table-responsive-lg">
+      <table id="appTable" class="table">
+        <thead>
+          <tr>
+            <th>IDs</th>
+            <th>Monumento</th>
+            <th>Comune</th>
+            <th>Indirizzo</th>
+            <th>Coordinate</th>
+            <th>Rilasciato da</th>
+            <th>Commons</th>
+            <th>Immagine</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>IDs</td>
+            <td>Monumento</td>
+            <td>Comune</td>
+            <td>Indirizzo</td>
+            <td>Coordinate</td>
+            <td>Rilasciato da</td>
+            <td>Commons</td>
+            <td>Immagine</td>
+          </tr>
+
+
+
+          <tr>
+          <td>01A5180001<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q3662476">Q3662476</a></small>
+          </td>
+          <td><a href="/wiki/Castello_di_Avigliana" title="Castello di Avigliana">Castello di Avigliana</a>
+          </td>
+          <td><a href="/wiki/Avigliana" title="Avigliana">Avigliana</a>
+          </td>
+          <td>
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.080778_N_7.393417_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°04′50.8″N</span> <span class="longitude">7°23′36.3″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.080778°N 7.393417°E</span><span style="display:none"><span class="geo">45.080778; 7.393417</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Comune di Avigliana</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Castello_di_Avigliana"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01A5180001+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01A5180002<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q25408910">Q25408910</a></small>
+          </td>
+          <td><a href="/wiki/Chiesa_di_Santa_Maria_Maggiore_(Avigliana)" title="Chiesa di Santa Maria Maggiore (Avigliana)">Chiesa di Santa Maria Maggiore<sup id="cite_ref-1" class="reference"></sup></a><a href="#cite_note-1">[1]</a>
+          </td>
+          <td><a href="/wiki/Avigliana" title="Avigliana">Avigliana</a>
+          </td>
+          <td>Via Santa Maria
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.08162_N_7.39534_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°04′53.83″N</span> <span class="longitude">7°23′43.22″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.08162°N 7.39534°E</span><span style="display:none"><span class="geo">45.08162; 7.39534</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Comune di Avigliana</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Santa_Maria_Maggiore_%28Avigliana%29"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01A5180002+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01A5180003<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q20108048">Q20108048</a></small>
+          </td>
+          <td><a href="/wiki/Avigliana#Architetture_religiose" title="Avigliana">Chiesa di San Giovanni<sup id="cite_ref-2" class="reference"></sup></a><a href="#cite_note-2">[2]</a>
+          </td>
+          <td><a href="/wiki/Avigliana" title="Avigliana">Avigliana</a>
+          </td>
+          <td>Via Umberto I
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.07899_N_7.39722_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°04′44.36″N</span> <span class="longitude">7°23′49.99″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.07899°N 7.39722°E</span><span style="display:none"><span class="geo">45.07899; 7.39722</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Comune di Avigliana</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:San_Giovanni_%28Avigliana%29"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01A5180003+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01A5180004<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q3671615">Q3671615</a></small>
+          </td>
+          <td><a href="/wiki/Chiesa_di_San_Pietro_(Avigliana)" title="Chiesa di San Pietro (Avigliana)">Chiesa di San Pietro<sup id="cite_ref-3" class="reference"></sup></a><a href="#cite_note-3">[3]</a>
+          </td>
+          <td><a href="/wiki/Avigliana" title="Avigliana">Avigliana</a>
+          </td>
+          <td>Via San Pietro
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.0757_N_7.3971_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°04′32.52″N</span> <span class="longitude">7°23′49.56″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.0757°N 7.3971°E</span><span style="display:none"><span class="geo">45.0757; 7.3971</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Comune di Avigliana</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Churches_in_Avigliana"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01A5180004+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01A5180005<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q30132564">Q30132564</a></small>
+          </td>
+          <td><a href="/wiki/Avigliana#Architetture_religiose" title="Avigliana">cimitero di San Pietro</a>
+          </td>
+          <td><a href="/wiki/Avigliana" title="Avigliana">Avigliana</a>
+          </td>
+          <td>
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.07557_N_7.39735_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°04′32.05″N</span> <span class="longitude">7°23′50.46″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.07557°N 7.39735°E</span><span style="display:none"><span class="geo">45.07557; 7.39735</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Comune di Avigliana</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Avigliana"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01A5180005+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01A5180006<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q30132261">Q30132261</a></small>
+          </td>
+          <td><a href="/wiki/Laghi_di_Avigliana" title="Laghi di Avigliana">Lago Grande</a>
+          </td>
+          <td><a href="/wiki/Avigliana" title="Avigliana">Avigliana</a>
+          </td>
+          <td>
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.0655_N_7.387_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°03′55.8″N</span> <span class="longitude">7°23′13.2″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.0655°N 7.387°E</span><span style="display:none"><span class="geo">45.0655; 7.387</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Comune di Avigliana</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Lago_Grande_%28Avigliana%29"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01A5180006+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01A5180007<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q30132247">Q30132247</a></small>
+          </td>
+          <td><a href="/wiki/Laghi_di_Avigliana" title="Laghi di Avigliana">Lago Piccolo</a>
+          </td>
+          <td><a href="/wiki/Avigliana" title="Avigliana">Avigliana</a>
+          </td>
+          <td>
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.0542_N_7.3916_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°03′15.12″N</span> <span class="longitude">7°23′29.76″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.0542°N 7.3916°E</span><span style="display:none"><span class="geo">45.0542; 7.3916</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Comune di Avigliana</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Lago_Piccolo_%28Avigliana%29"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01A5180007+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01A5180008<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q30132220">Q30132220</a></small>
+          </td>
+          <td><a href="/wiki/Avigliana" title="Avigliana">palude dei Mareschi</a>
+          </td>
+          <td><a href="/wiki/Avigliana" title="Avigliana">Avigliana</a>
+          </td>
+          <td>
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.0729_N_7.3748_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°04′22.44″N</span> <span class="longitude">7°22′29.28″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.0729°N 7.3748°E</span><span style="display:none"><span class="geo">45.0729; 7.3748</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Comune di Avigliana</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Avigliana"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01A5180008+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01A5180009<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q30132208">Q30132208</a></small>
+          </td>
+          <td><a href="/wiki/Avigliana#Musei" title="Avigliana">Dinamitificio Nobel</a>
+          </td>
+          <td><a href="/wiki/Avigliana" title="Avigliana">Avigliana</a>
+          </td>
+          <td>
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.06997_N_7.3823_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°04′11.89″N</span> <span class="longitude">7°22′56.28″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.06997°N 7.3823°E</span><span style="display:none"><span class="geo">45.06997; 7.3823</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Comune di Avigliana</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Avigliana"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01A5180009+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B4350001<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27987643">Q27987643</a></small>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Chiesa di San Calocero<sup id="cite_ref-4" class="reference"></sup></a><a href="#cite_note-4">[4]</a>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Caluso</a>
+          </td>
+          <td>Via Belvedere
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Caluso</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Churches+in+Caluso"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B4350001+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B4350002<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q32135736">Q32135736</a></small>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Castellazzo<sup id="cite_ref-5" class="reference"></sup></a><a href="#cite_note-5">[5]</a>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Caluso</a>
+          </td>
+          <td>Via Belvedere
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.30969_N_7.89264_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°18′34.88″N</span> <span class="longitude">7°53′33.5″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.30969°N 7.89264°E</span><span style="display:none"><span class="geo">45.30969; 7.89264</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Comune di Caluso</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Castellazzo+%28Caluso%29"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B4350002+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B4350003<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q28000643">Q28000643</a></small>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Porta Crealis<sup id="cite_ref-6" class="reference"></sup></a><a href="#cite_note-6">[6]</a>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Caluso</a>
+          </td>
+          <td>Via Diaz
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Caluso</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Buildings+in+Caluso"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B4350003+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B4350004<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27989667">Q27989667</a></small>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Palazzo Valperga di Masino<sup id="cite_ref-7" class="reference"></sup></a><a href="#cite_note-7">[7]</a><sup id="cite_ref-8" class="reference"><a href="#cite_note-8">[8]</a></sup>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Caluso</a>
+          </td>
+          <td>Piazza Valperga, 2
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Caluso</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Buildings+in+Caluso"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B4350004+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B4350005<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27998862">Q27998862</a></small>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">parco Spurgazzi</a>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Caluso</a>
+          </td>
+          <td>Piazza Valperga, 2
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Caluso</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Caluso"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B4350005+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B4350006<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27989668">Q27989668</a></small>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Palazzo del Municipio<sup id="cite_ref-9" class="reference"></sup></a><a href="#cite_note-9">[9]</a>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Caluso</a>
+          </td>
+          <td>Piazza Ubertini, 1
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Caluso</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Buildings+in+Caluso"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B4350006+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B4350007<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q32135254">Q32135254</a></small>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Canale di Caluso</a>
+          </td>
+          <td><i>più comuni</i>
+          </td>
+          <td>Concentrico di Caluso
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Caluso</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Caluso"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B4350007+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B4350008<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q28016654">Q28016654</a></small>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Chiostro dei Frati Francescani Minori</a>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Caluso</a>
+          </td>
+          <td>Piazza Mazzini, 2
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Caluso</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Buildings+in+Caluso"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B4350008+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B4350009<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27991144">Q27991144</a></small>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">monumento ai Caduti</a>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Caluso</a>
+          </td>
+          <td>Via San Clemente
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Caluso</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Caluso"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B4350009+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B4350010<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27998864">Q27998864</a></small>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">parco della Rimembranza</a>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Caluso</a>
+          </td>
+          <td>c/o cimitero di Caluso
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Caluso</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Caluso"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B4350010+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B4350011<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27991145">Q27991145</a></small>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">monumento ai Caduti</a>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Caluso</a>
+          </td>
+          <td>Via Duca degli Abruzzi - Loc. Arè di Caluso
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Caluso</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Caluso"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B4350011+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B4350012<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27991146">Q27991146</a></small>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">monumento ai Caduti</a>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Caluso</a>
+          </td>
+          <td>Via Duca d'Aosta - Loc. Vallo di Caluso
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Caluso</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Vallo+%28Caluso%29"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B4350012+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B4350013<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27991147">Q27991147</a></small>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Monumento ai Caduti<sup id="cite_ref-10" class="reference"></sup></a><a href="#cite_note-10">[10]</a>
+          </td>
+          <td><a href="/wiki/Caluso" title="Caluso">Caluso</a>
+          </td>
+          <td>Piazza dei Caduti - Loc. Rodallo di Caluso
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Caluso</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Rodallo+%28Caluso%29"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B4350013+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B7910001<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q29574722">Q29574722</a></small>
+          </td>
+          <td><a href="/wiki/Carmagnola#Monumenti_e_luoghi_d'interesse" title="Carmagnola">Castello<sup id="cite_ref-11" class="reference"></sup></a><a href="#cite_note-11">[11]</a>
+          </td>
+          <td><a href="/wiki/Carmagnola" title="Carmagnola">Carmagnola</a>
+          </td>
+          <td>Piazza Manzoni, 10
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Carmagnola</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Carmagnola"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B7910001+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B7910002<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27989685">Q27989685</a></small>
+          </td>
+          <td><a href="/wiki/Carmagnola#Monumenti_e_luoghi_d'interesse" title="Carmagnola">Palazzo Lomellini</a>
+          </td>
+          <td><a href="/wiki/Carmagnola" title="Carmagnola">Carmagnola</a>
+          </td>
+          <td>Piazza Sant'Agostino, 17
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Carmagnola</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Carmagnola"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B7910002+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B7910003<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27987659">Q27987659</a></small>
+          </td>
+          <td><a href="/wiki/Carmagnola#Monumenti_e_luoghi_d'interesse" title="Carmagnola">chiesa di Sant'Agostino</a>
+          </td>
+          <td><a href="/wiki/Carmagnola" title="Carmagnola">Carmagnola</a>
+          </td>
+          <td>Piazza Sant'Agostino
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Carmagnola</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Churches+in+Carmagnola"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B7910003+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B7910004<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27987660">Q27987660</a></small>
+          </td>
+          <td><a href="/wiki/Carmagnola#Monumenti_e_luoghi_d'interesse" title="Carmagnola">chiesa di San Filippo</a>
+          </td>
+          <td><a href="/wiki/Carmagnola" title="Carmagnola">Carmagnola</a>
+          </td>
+          <td>Piazza Manzoni, 12
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Carmagnola</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Churches+in+Carmagnola"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B7910004+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B7910005<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q29905195">Q29905195</a></small>
+          </td>
+          <td><a href="/wiki/Carmagnola#Monumenti_e_luoghi_d'interesse" title="Carmagnola">Cascina Vigna</a>
+          </td>
+          <td><a href="/wiki/Carmagnola" title="Carmagnola">Carmagnola</a>
+          </td>
+          <td>Via S.F. Di Sales, 188
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Carmagnola</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Carmagnola"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B7910005+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B7910006<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27998867">Q27998867</a></small>
+          </td>
+          <td><a href="/wiki/Carmagnola#Monumenti_e_luoghi_d'interesse" title="Carmagnola">parco di Cascina Vigna</a>
+          </td>
+          <td><a href="/wiki/Carmagnola" title="Carmagnola">Carmagnola</a>
+          </td>
+          <td>Via S.F. Di Sales, 188
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Carmagnola</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Carmagnola"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B7910006+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01B7910007<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q29904728">Q29904728</a></small>
+          </td>
+          <td><a href="/wiki/Carmagnola#Monumenti_e_luoghi_d'interesse" title="Carmagnola">Ex Casotto del Peso<sup id="cite_ref-12" class="reference"></sup></a><a href="#cite_note-12">[12]</a>
+          </td>
+          <td><a href="/wiki/Carmagnola" title="Carmagnola">Carmagnola</a>
+          </td>
+          <td>Piazza Mazzini
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Carmagnola</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Carmagnola"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01B7910007+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01C3690001<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q3603267">Q3603267</a></small>
+          </td>
+          <td><a href="/wiki/Abbazia_di_Santa_Fede" title="Abbazia di Santa Fede">abbazia di Santa Fede</a>
+          </td>
+          <td><a href="/wiki/Cavagnolo" title="Cavagnolo">Cavagnolo</a>
+          </td>
+          <td>Via Santa Fede
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.143761111111_N_8.0373583333333_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°08′37.54″N</span> <span class="longitude">8°02′14.49″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.143761°N 8.037358°E</span><span style="display:none"><span class="geo">45.143761; 8.037358</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Diocesi di Casale Monferrato</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Abbazia+di+Santa+Fede+%28Cavagnolo%29"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01C3690001+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>0011435228<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q32136725">Q32136725</a></small>
+          </td>
+          <td><a href="/wiki/Maglione#Il_Museo_d.27Arte_Contemporanea_all.27Aperto" title="Maglione">Museo d'arte contemporanea all'aperto<sup id="cite_ref-13" class="reference"></sup></a><a href="#cite_note-13">[13]</a>
+          </td>
+          <td><a href="/wiki/Maglione" title="Maglione">Maglione</a>
+          </td>
+          <td>
+          </td>
+          <td>
+          </td>
+          <td><small>MACAM - Museo d'arte contemporanea all'aperto di Maglione</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Museo+d%27arte+contemporanea+all%27aperto+%28Maglione%29"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=0011435228+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>0011812729<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27987373">Q27987373</a></small>
+          </td>
+          <td><a href="/wiki/Pavone_Canavese" title="Pavone Canavese">chiesa di San Grato</a>
+          </td>
+          <td><a href="/wiki/Pavone_Canavese" title="Pavone Canavese">Pavone Canavese</a>
+          </td>
+          <td>Collina Paraj Auta
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Pavone Cavanese</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:San+Grato+%28Pavone+Canavese%29"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=0011812729+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>0011812730<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27994044">Q27994044</a></small>
+          </td>
+          <td><a href="/wiki/Pavone_Canavese" title="Pavone Canavese">Torre Campanaria</a>
+          </td>
+          <td><a href="/wiki/Pavone_Canavese" title="Pavone Canavese">Pavone Canavese</a>
+          </td>
+          <td>Via Ricetti
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Pavone Cavanese</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Pavone+Canavese"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=0011812730+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>0011812731<br><small></small>
+          </td>
+          <td><a href="/wiki/Pavone_Canavese" title="Pavone Canavese">Fondazione Alfredo d’Andrade</a>
+          </td>
+          <td><a href="/wiki/Pavone_Canavese" title="Pavone Canavese">Pavone Canavese</a>
+          </td>
+          <td>Via Giuseppe Quilico 1
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Pavone Cavanese</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Pavone+Canavese"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=0011812731+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>0011812732<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q27994051">Q27994051</a></small>
+          </td>
+          <td><a href="/wiki/Pavone_Canavese" title="Pavone Canavese">Torre Porta</a>
+          </td>
+          <td><a href="/wiki/Pavone_Canavese" title="Pavone Canavese">Pavone Canavese</a>
+          </td>
+          <td>Via Ricetti
+          </td>
+          <td>
+          </td>
+          <td><small>Comune di Pavone Cavanese</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Pavone+Canavese"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=0011812732+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>00119791<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q29905200">Q29905200</a></small>
+          </td>
+          <td><a href="/w/index.php?title=Cascina_Bellezza&amp;action=edit&amp;redlink=1" class="new" title="Cascina Bellezza (la pagina non esiste)">Cascina Bellezza</a>
+          </td>
+          <td><a href="/wiki/Poirino" title="Poirino">Poirino</a>
+          </td>
+          <td>Via Bellezza 60/A
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=44.9128_N_7.78966_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">44°54′46.08″N</span> <span class="longitude">7°47′22.78″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">44.9128°N 7.78966°E</span><span style="display:none"><span class="geo">44.9128; 7.78966</span></span></span></a></span></span><br>
+          </td>
+          <td><small>WWF</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Poirino"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=00119791+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>01I2580001<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q19881">Q19881</a></small>
+          </td>
+          <td><a href="/wiki/Sacra_di_San_Michele" title="Sacra di San Michele">Sacra di San Michele</a>
+          </td>
+          <td><a href="/wiki/Sant%27Ambrogio_di_Torino" title="Sant'Ambrogio di Torino">Sant'Ambrogio di Torino</a>
+          </td>
+          <td>Via alla Sacra
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.098033333333_N_7.3434888888889_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°05′52.92″N</span> <span class="longitude">7°20′36.56″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.098033°N 7.343489°E</span><span style="display:none"><span class="geo">45.098033; 7.343489</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Sacra di San Michele</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Sacra+di+San+Michele"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=01I2580001+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>0012722848<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q3757708">Q3757708</a></small>
+          </td>
+          <td><a href="/wiki/Galleria_civica_d%27arte_moderna_e_contemporanea" title="Galleria civica d'arte moderna e contemporanea">Galleria di Arte Moderna<sup id="cite_ref-14" class="reference"></sup></a><a href="#cite_note-14">[14]</a><sup id="cite_ref-15" class="reference"><a href="#cite_note-15">[15]</a></sup>
+          </td>
+          <td><a href="/wiki/Torino" title="Torino">Torino</a>
+          </td>
+          <td>Via Magenta, 31
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.0648_N_7.66921_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°03′53.28″N</span> <span class="longitude">7°40′09.16″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.0648°N 7.66921°E</span><span style="display:none"><span class="geo">45.0648; 7.66921</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Fondazione Torino Musei</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Galleria+d%27Arte+Moderna+%28Turin%29"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=0012722848+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>0012722849<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q19826">Q19826</a></small>
+          </td>
+          <td><a href="/wiki/Palazzo_Madama_e_Casaforte_degli_Acaja" title="Palazzo Madama e Casaforte degli Acaja">Palazzo Madama e Casaforte degli Acaja</a>
+          </td>
+          <td><a href="/wiki/Torino" title="Torino">Torino</a>
+          </td>
+          <td>Pazza Castello
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.07094444_N_7.68577778_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°04′15.4″N</span> <span class="longitude">7°41′08.8″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.070944°N 7.685778°E</span><span style="display:none"><span class="geo">45.070944; 7.685778</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Fondazione Torino Musei</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Palazzo_Madama_%28Turin%29"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=0012722849+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>0012722850<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q3819018">Q3819018</a></small>
+          </td>
+          <td><a href="/wiki/Museo_civico_d%27arte_antica" title="Museo civico d'arte antica">Museo civico d'arte antica</a>
+          </td>
+          <td><a href="/wiki/Torino" title="Torino">Torino</a>
+          </td>
+          <td>Pazza Castello
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.0711_N_7.68548_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°04′15.96″N</span> <span class="longitude">7°41′07.73″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.0711°N 7.68548°E</span><span style="display:none"><span class="geo">45.0711; 7.68548</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Fondazione Torino Musei</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Museo+Civico+%28Turin%29"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=0012722850+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>0012722851<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q3867873">Q3867873</a></small>
+          </td>
+          <td><a href="/wiki/Museo_d%27arte_orientale_(Torino)" title="Museo d'arte orientale (Torino)">Museo d'Arte Orientale<sup id="cite_ref-16" class="reference"></sup></a><a href="#cite_note-16">[16]</a><sup id="cite_ref-17" class="reference"><a href="#cite_note-17">[17]</a></sup>
+          </td>
+          <td><a href="/wiki/Torino" title="Torino">Torino</a>
+          </td>
+          <td>Via San Domenico 9/11
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.0744144_N_7.679353_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°04′27.89″N</span> <span class="longitude">7°40′45.67″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.074414°N 7.679353°E</span><span style="display:none"><span class="geo">45.074414; 7.679353</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Fondazione Torino Musei</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Museo+d%27Arte+Orientale+%28Turin%29"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=0012722851+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>0012722852<br><small></small>
+          </td>
+          <td><a href="/wiki/Borgo_medioevale_di_Torino" class="mw-redirect" title="Borgo medioevale di Torino">Borgo medioevale di Torino</a>
+          </td>
+          <td><a href="/wiki/Torino" title="Torino">Torino</a>
+          </td>
+          <td>Viale Virgilio 107
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.04904_N_7.68511_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°02′56.54″N</span> <span class="longitude">7°41′06.4″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.04904°N 7.68511°E</span><span style="display:none"><span class="geo">45.04904; 7.68511</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Fondazione Torino Musei</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Borgo+medievale+%28Turin%29"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=0012722852+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          <p><br>
+          </p>
+          </td></tr>
+          <tr>
+          <td>0012725707<br><small><a class="external text" href="https://www.wikidata.org/wiki/Q975240">Q975240</a></small>
+          </td>
+          <td><a href="/wiki/Pinacoteca_Giovanni_e_Marella_Agnelli" title="Pinacoteca Giovanni e Marella Agnelli">Pinacoteca Giovanni e Marella Agnelli<sup id="cite_ref-18" class="reference"></sup></a><a href="#cite_note-18">[18]</a>
+          </td>
+          <td><a href="/wiki/Torino" title="Torino">Torino</a>
+          </td>
+          <td>Via Nizza 230/103
+          </td>
+          <td><span class="plainlinks nourlexpansion"><span style="white-space: nowrap;"><img src="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png" srcset="//upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/17px-WMA_button2b.png 1x, //upload.wikimedia.org/wikipedia/commons/thumb/5/55/WMA_button2b.png/34px-WMA_button2b.png 2x" class="wmamapbutton noprint" title="mostra la località su una carta interattiva" alt="" style="padding: 0px 3px 0px 0px; cursor: pointer;"><a class="external text" href="http://tools.wmflabs.org/geohack/geohack.php?language=it&amp;pagename=Progetto:Wiki_Loves_Monuments_2017/Monumenti/Piemonte/Citt%C3%A0_metropolitana_di_Torino&amp;params=45.03305556_N_7.66611111_E_dim:100" style="white-space: normal;"><span class="geo-default"><span class="geo-dms" title="Mappe, foto aeree e altri dati per questa posizione"><span class="latitude">45°01′59″N</span> <span class="longitude">7°39′58″E</span></span></span><span class="geo-multi-punct">﻿ / ﻿</span><span class="geo-nondefault"><span class="geo-dec" title="Mappe, foto aeree e altri dati per questa posizione">45.033056°N 7.666111°E</span><span style="display:none"><span class="geo">45.033056; 7.666111</span></span></span></a></span></span><br>
+          </td>
+          <td><small>Pinacoteca Giovanni e Marella Agnelli</small>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Pinacoteca+Giovanni+e+Marella+Agnelli"><small>Monumento</small></a><br><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Category:Images+from+Wiki+Loves+Monuments+2017+in+Italy+-+Piedmont"><small>Regione</small></a><br>
+          </td>
+          <td><a class="external text" href="https://commons.wikimedia.org/w/index.php?title=Special%3ASearch&amp;profile=default&amp;search=0012725707+incategory%3A%22Images_from_Wiki_Loves_Monuments_2017_in_Italy%22+&amp;fulltext=Search">Foto caricate<br>nel 2017</a>
+          </td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="js/app.js"></script>
+  </body>
+</html>
