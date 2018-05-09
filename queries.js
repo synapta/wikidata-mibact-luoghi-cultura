@@ -31,7 +31,7 @@ exports.queryMibact = `
             OPTIONAL { ?address cis:fullAddress ?fullAddress . }
         }
     }
-    offset 100 LIMIT 100
+    offset 204 LIMIT 100
 `;
 
 exports.queryWikidata = function (item) {
@@ -65,7 +65,7 @@ exports.queryWikidata = function (item) {
         }
       }
     `);
-    if (item.label !== undefined) conds.push(`{ ?item rdfs:label "${item.label.value.replace(/\"/g, '\\"').replace(/dell\'/g, '')}"@it }`);
+    if (item.label !== undefined) conds.push(`{ ?item rdfs:label "${item.label.value.replace(/\"/g, '\\"')}"@it }`);
     if (item.label !== undefined && item.label.value.startsWith("Area archeologica di ")) {
         conds.push(`
           {
