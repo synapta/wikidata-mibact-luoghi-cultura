@@ -3,7 +3,7 @@ exports.queryMibact = `
     PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
     PREFIX dc: <http://purl.org/dc/elements/1.1/>
 
-    SELECT ?s ?label ?type ?id ?long ?lat ?owl ?telephone ?email ?fax ?website ?pec ?comune ?provincia ?stato ?cap ?fullAddress
+    SELECT ?s ?label ?type ?id ?long ?lat ?owl ?disciplina ?telephone ?email ?fax ?website ?pec ?comune ?provincia ?stato ?cap ?fullAddress
     WHERE {
         ?s a cis:CulturalInstituteOrSite .
         ?s rdfs:label ?label .
@@ -11,6 +11,7 @@ exports.queryMibact = `
         OPTIONAL { ?s cis:identifier ?id . }
         OPTIONAL { ?s geo:long ?long . ?s geo:lat ?lat . }
         OPTIONAL { ?s owl:sameAs ?owl . }
+        OPTIONAL { ?s cis:hasDiscipline ?disciplina . }
         OPTIONAL {
             ?s cis:hasContactPoint ?hasContactPoint .
             ?hasContactPoint rdfs:label ?contactPointLabel .
@@ -31,7 +32,7 @@ exports.queryMibact = `
             OPTIONAL { ?address cis:fullAddress ?fullAddress . }
         }
     }
-    offset 100 LIMIT 100
+    OFFSET 18 LIMIT 100
 `;
 
 exports.queryWikidata = function (item) {
@@ -77,9 +78,10 @@ exports.queryWikidata = function (item) {
     if (item.label !== undefined && item.label.value.includes(" S. ")) conds.push(`{ ?item rdfs:label "${item.label.value.replace(/\"/g, '\\"').replace(/ S. /g, ' Santa ')}"@it }`);
     if (item.label !== undefined && item.label.value.includes(" SS. ")) conds.push(`{ ?item rdfs:label "${item.label.value.replace(/\"/g, '\\"').replace(/ SS. /g, ' Santi ')}"@it }`);
     if (item.label !== undefined && item.label.value.startsWith("Area archeologica ")) conds.push(`{ ?item wdt:P31 wd:Q839954 }`);
-    
+
     if (item.email !== undefined) conds.push(`{ ?item wdt:P968 "${item.email.value.replace(/\s/g, '')}" }`);
-    if (item.telephone !== undefined) conds.push(`{ ?item wdt:P1329 "${item.telephone.value}" }`);
+    //Maybe some broken formats made it a breakable condition
+    //if (item.telephone !== undefined) conds.push(`{ ?item wdt:P1329 "${item.telephone.value}" }`);
     if (item.fax !== undefined) conds.push(`{ ?item wdt:P2900 "${item.fax.value}" }`);
     if (item.owl !== undefined) conds.push(`{ <${item.owl.value.replace("http://it.dbpedia.org/resource/","https://it.wikipedia.org/wiki/")}> schema:about ?item }`);
     if (item.website !== undefined) conds.push(`{ ?item wdt:P856 <${item.website.value.replace(/\s/g, '').replace(/\/$/,'')}> }`); //senza slash finale
@@ -107,4 +109,16 @@ exports.queryWikidata = function (item) {
     start = start.slice(0, -7);
 
     return start + end;
+}
+
+exports.queryComuneWikidata = function (comune) {
+    return `
+        SELECT ?wdId
+        WHERE {
+            ?wdId rdfs:label "${comune}"@it;
+                  wdt:P31/wdt:P279* wd:Q747074
+        }
+        ORDER BY ?wdId
+        LIMIT 1
+    `
 }
