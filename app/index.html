@@ -20,7 +20,12 @@
           <h1>Wikidata MIBACT Luoghi della Cultura</h1>
         </div>
       </div>
-      <div class="row">
+      <div class="row search-comuni">
+        <div class="col-sm">
+          <input type="text" class="form-control typeahead" id="comuniSearch" placeholder="Cerca un comune per vederne i monumenti">
+        </div>
+      </div>
+      <div class="row d-none">
         <div class="col-sm">
           <!-- begin TABLE -->
           <div class="table-responsive-lg">
@@ -58,6 +63,7 @@
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script> -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+    <script src="js/typeahead.bundle.min.js"></script>
     <!-- Custom JavaScript -->
     <script src="js/app.js"></script>
   </body>
