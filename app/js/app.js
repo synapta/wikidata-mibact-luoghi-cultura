@@ -89,82 +89,135 @@ var prettify_comune = function (record, fieldName) {
   }
 };
 
+////////////////////////////////
+
+// Funzioni di utlità
+
 
 
 $(document).ready( function () {
 
-          /**var getData = function () {
 
-      // Carica dati
-      $.ajax ({
-          type:'GET',
-          url: "js/devel-results.json",
-          error: function(e) {
-              // console.log(e)
-              alert('Error retrieving data');
-              return {};
-          },
-          success: function(json) {
-              // var newJson = enrichJson(json);
-              return json;
-          }
-      });
-    }; **/
-
-    $('#appTable').DataTable({
-        ajax: {
-            // "url": "js/devel-results.json",
-            "url": "https://query.wikidata.org/sparql?query=SELECT%20?idWLM%20?idWD%20?idWDLabel%20?comune%20?indirizzo%20?coord%20?commons%0AWHERE%20%7B%0A?idWD%20wdt:P131%20?comune%20.%20?comune%20wdt:P17%20wd:Q38%20.%0AOPTIONAL%20%7B%20?idWD%20wdt:P969%20?indirizzo%20.%20%7D%0AOPTIONAL%20%7B%20?idWD%20wdt:P625%20?coord%20.%20%7D%0AOPTIONAL%20%7B%20?idWD%20wdt:P373%20?commons%20.%20%7D%0A%0A%7B%20?idWD%20wdt:P2186%20?idWLM%20.%20%7D%20UNION%0A%7B%20?idWD%20wdt:P1435%20wd:Q26971668%20.%20%7D%0A%0ASERVICE%20wikibase:label%20%7B%20bd:serviceParam%20wikibase:language%20%22it,en%22.%20%7D%0A%7D%0ALIMIT%20500",
-            // dataSrc: 'results.bindings',
-            "dataSrc": function ( json ) {
-                var customData = [];
-                var headName = '';
-                var errcount = 0;  // debug
-                var record = {};
-                var isCustomHead = false;
-                for ( var i=0, ien=json.results.bindings.length ; i < ien ; i++ ) {
-                    customData[i] = {};
-                    // campi custom, solitamente elaborazioni di altri campi
-                    customData[i][customHeadsName] = {};
-                    // Per ogni singolo campo (come letto da json.head.vars)
-                    // ricava i valori come da query e ne aggiunge altri
-                    // in json[customHeadsName]
-                    for (j=0; j < json.head.vars.length; j++) {
-                        errcount = 0;  // debug
-                        headName = json.head.vars[j];
-                        isCustomHead = customHeads.indexOf(headName) != -1;
-                        try {
-                            if (typeof json.results.bindings[i][headName] === 'undefined') {
-                                throw "Value undefined";
+    var doMonumentalSearch = function (comune) {
+        /**
+        Ricerca i monumenti in base alla chiave di ricerca comune
+        **/
+        // Rendo visibile la colonna con i dati tabellari
+        $().removeClass('d-none');
+        $('#appTable').DataTable({
+            ajax: {
+                // "url": "js/devel-results.json",
+                "url": "https://query.wikidata.org/sparql?query=SELECT%20?idWLM%20?idWD%20?idWDLabel%20?comune%20?indirizzo%20?coord%20?commons%0AWHERE%20%7B%0A?idWD%20wdt:P131%20?comune%20.%20?comune%20wdt:P17%20wd:Q38%20.%0AOPTIONAL%20%7B%20?idWD%20wdt:P969%20?indirizzo%20.%20%7D%0AOPTIONAL%20%7B%20?idWD%20wdt:P625%20?coord%20.%20%7D%0AOPTIONAL%20%7B%20?idWD%20wdt:P373%20?commons%20.%20%7D%0A%0A%7B%20?idWD%20wdt:P2186%20?idWLM%20.%20%7D%20UNION%0A%7B%20?idWD%20wdt:P1435%20wd:Q26971668%20.%20%7D%0A%0ASERVICE%20wikibase:label%20%7B%20bd:serviceParam%20wikibase:language%20%22it,en%22.%20%7D%0A%7D%0ALIMIT%20500",
+                // dataSrc: 'results.bindings',
+                "dataSrc": function ( json ) {
+                    var customData = [];
+                    var headName = '';
+                    var errcount = 0;  // debug
+                    var record = {};
+                    var isCustomHead = false;
+                    for ( var i=0, ien=json.results.bindings.length ; i < ien ; i++ ) {
+                        customData[i] = {};
+                        // campi custom, solitamente elaborazioni di altri campi
+                        customData[i][customHeadsName] = {};
+                        // Per ogni singolo campo (come letto da json.head.vars)
+                        // ricava i valori come da query e ne aggiunge altri
+                        // in json[customHeadsName]
+                        for (j=0; j < json.head.vars.length; j++) {
+                            errcount = 0;  // debug
+                            headName = json.head.vars[j];
+                            isCustomHead = customHeads.indexOf(headName) != -1;
+                            try {
+                                if (typeof json.results.bindings[i][headName] === 'undefined') {
+                                    throw "Value undefined";
+                                }
+                                record = json.results.bindings[i][headName];
+                                customData[i][headName] = record;
                             }
-                            record = json.results.bindings[i][headName];
-                            customData[i][headName] = record;
+                            catch (e) {
+                                // Fake element
+                                customData[i][headName] = {'type':'literal', 'value': emptyValue};
+                                errcount++;
+                            }
+                            // Eventuali campi customizzati aggiuntivi
+                            if (isCustomHead) {
+                                prettify(customData[i], headName);
+                            }
                         }
-                        catch (e) {
-                            // Fake element
-                            customData[i][headName] = {'type':'literal', 'value': emptyValue};
-                            errcount++;
-                        }
-                        // Eventuali campi customizzati aggiuntivi
-                        if (isCustomHead) {
-                            prettify(customData[i], headName);
-                        }
+                        /** if (errcount == 0) { // debug
+                            // record perfetto
+                            console.log(customData[i])
+                        } **/
                     }
-                    // j=0; j < json.head.vars.length; j++
-                    if (errcount > 0) {
-                        console.log(customData[i])
-                    }
+                    return customData;
                 }
-                return customData;
-            }
+            },
+            columns: [
+                {data: 'idWLM.value'},  // 08C1450001
+                {data: 'idWDLabel.value'},  // Fortezza di Sarzanello
+                {data: 'customFields.comune.html'},  // http://www.wikidata.org/entity/Q160628
+                {data: 'indirizzo.value'},  // Via alla Fortezza
+                {data: 'customFields.coord.html'},  // Point(9.97152778 44.11510833) Long / Lat
+                {data: 'customFields.commons.html'} // https://commons.wikimedia.org/w/index.php?title=Category:Santa_Maria_Maggiore_%28Avigliana%29
+            ]
+        });
+    };
+
+
+    var initializeAutocomplete = function (comuni) {
+        /**
+            Avvio sistema di autocompletamento
+        **/
+        // Operazione preliminare: carico i risultati in una variabile
+        // @see http://twitter.github.io/typeahead.js/examples/
+        var comuniAutocomplete = new Bloodhound({
+            // datumTokenizer: Bloodhound.tokenizers.whitespace,
+            datumTokenizer: function(d) {
+                // Quale elemento deve essere usato per la ricerca?
+                return Bloodhound.tokenizers.whitespace(d.label);
+            },
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            // url points to a json file that contains an array of country names, see
+            // https://github.com/twitter/typeahead.js/blob/gh-pages/data/countries.json
+            // prefetch: '/comuni.json'
+            local: comuni
+        });
+
+        // 1mo passo: ricerca del comune
+        $('.search-comuni .typeahead').typeahead({
+          hint: true,
+          highlight: true,
+          minLength: 1
         },
-        columns: [
-            {data: 'idWLM.value'},  // 08C1450001
-            {data: 'idWDLabel.value'},  // Fortezza di Sarzanello
-            {data: 'customFields.comune.html'},  // http://www.wikidata.org/entity/Q160628
-            {data: 'indirizzo.value'},  // Via alla Fortezza
-            {data: 'customFields.coord.html'},  // Point(9.97152778 44.11510833) Long / Lat
-            {data: 'customFields.commons.html'} // https://commons.wikimedia.org/w/index.php?title=Category:Santa_Maria_Maggiore_%28Avigliana%29
-        ]
+        {
+          name: 'comuni',
+          displayKey: 'label',  // quale campo compare nella tendina di selez?
+          source: comuniAutocomplete
+        });
+    };
+
+
+    // AVVIO al document ready
+    // Carica dati per autocomplete
+    $.ajax ({
+        type:'GET',
+        url: "/comuni.json",
+        error: function(e) {
+            // console.log(e)
+            alert('Error retrieving data');
+        },
+        success: function(json) {
+            // var newJson = enrichJson(json);
+            initializeAutocomplete(json);
+        }
     });
-} );
+
+
+    $('.typeahead').bind('typeahead:select', function(ev, record) {
+        // console.log('Selection: ' + search);
+        // doMonumentalSearch(search);
+        console.log(record.wdid);
+    });
+
+
+
+});
