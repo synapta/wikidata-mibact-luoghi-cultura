@@ -141,7 +141,6 @@ var schiacciaElem = function (elem) {
     let newelem = {};
     newelem.label = elem.label.value;
     if (elem.id !== undefined) newelem.id = elem.id.value;
-    //TODO if (elem.type !== undefined) newelem.type = elem.type.value;
     if (elem.s !== undefined) newelem.uri = elem.s.value;
     if (elem.lat !== undefined && elem.long !== undefined) newelem.coord = elem.lat.value + " " + elem.long.value;
     if (elem.comune !== undefined) newelem.comune = elem.comune.value;
