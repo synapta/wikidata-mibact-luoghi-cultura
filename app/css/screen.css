@@ -1,0 +1,33 @@
+#appTable a:link,
+#appTable a:hover,
+#appTable a:focus,
+#appTable a:visited,
+#appTable a:active {
+    color: rgb(51, 153, 102);
+}
+#appTable thead {
+    background-color: rgb(51, 153, 102);
+    color: whitesmoke;
+}
+#appTable_wrapper .dataTables_paginate .paginate_button:link,
+#appTable_wrapper .dataTables_paginate .paginate_button:visited,
+#appTable_wrapper .dataTables_paginate .paginate_button:focus,
+#appTable_wrapper .dataTables_paginate .paginate_button:active,
+#appTable_wrapper .dataTables_paginate .paginate_button:hover {
+  border: none;
+}
+#appTable_wrapper .dataTables_paginate .paginate_button.current {
+    background: rgb(51, 153, 102);
+    color: whitesmoke !important;
+    border: none;
+}
+#appTable_wrapper .dataTables_paginate .paginate_button:hover {
+    background: rgb(51, 153, 102);
+    color: whitesmoke;
+}
+#appTable .sorting_asc {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAdUlEQVQ4je3PoQ3CQBiG4auBhIQpcJ0BwxhINJo96ADdo6qLVNYjMKSYp+YEudRcKzD3Jr998v0hlEqlJFwx4bNwE2452B6d5Xocc9ed8U6gFy65nwZUaBKsRZWNRfCEIUIj6lXQD3jHF49NUMR2eOKwGftbM0VhnY+7Lv16AAAAAElFTkSuQmCC);
+}
+#appTable .sorting_desc {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATCAYAAAByUDbMAAAAbUlEQVQ4je3PIQ6CYACGYf4Cm5unoHEGCscgms3cQw7APUxexGgnUByWh0DSUX6w6Hi2r77blyQ/CwdckH4j1uCF89ZQgYfZHfnaUEDnXYuwJlah/4gNKGNDR9wsuyKLiZ0w4rmwEXXs093u/02KnZ2P86L05QAAAABJRU5ErkJggg==);
+}
