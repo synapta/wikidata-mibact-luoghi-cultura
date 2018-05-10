@@ -1,5 +1,6 @@
 var express = require('express');
 var request = require('request');
+// Interrogazioni SPARQL effettuate lato server
 const WIKIDATABASEQUERYURL =  "https://query.wikidata.org/sparql?query=";
 // Elenca i comuni da visualizzare nell'autocomplete
 const QUERY_SPARQL_COMUNI_AUTOCOMPLETE = `SELECT DISTINCT ?comune ?comuneLabel
@@ -39,10 +40,6 @@ module.exports = function(app, apicache, passport) {
                     // da typeahead
                     var parsed = JSON.parse(body).results.bindings;
                     for (var i = 0; i < parsed.length; i++) {
-                        // results.push(parsed[i].comuneLabel.value);
-                        if (i == 0) {
-console.log(parsed[i]);
-                        }
                         results.push({
                           'wdid':parsed[i].comune.value,
                           'label':parsed[i].comuneLabel.value

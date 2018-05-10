@@ -2,7 +2,7 @@
 var emptyValue = '---';
 // Elencare qui le intestazioni che necessitano di personalizzazioni
 // da sdoppiare in el.custom
-var customHeads = ['coord', 'commons', 'comune'];
+var customHeads = ['coord', 'commons', 'comune'];  // , 'comune'
 // i campi custom verranno inseriti in una proprietà chiamata:
 var customHeadsName = 'customFields';
 
@@ -68,8 +68,9 @@ var prettify_commons = function (record, fieldName) {
   }
 };
 
-
+/**
 var prettify_comune = function (record, fieldName) {
+  console.log(record);
   try {
       if (typeof record[fieldName] === 'undefined' || record[fieldName].value === emptyValue) {
           throw "Value undefined";
@@ -88,28 +89,60 @@ var prettify_comune = function (record, fieldName) {
       };
   }
 };
+**/
 
 ////////////////////////////////
 
 // Funzioni di utlità
+var wikidataUrl2id = function (record) {
+    let els = record.split('/');
+    return els[els.length - 1];
+};
 
-
+var appDataTableObj = '';
 
 $(document).ready( function () {
 
-
-    var doMonumentalSearch = function (comune) {
+    var doMonumentalSearch = function (comuneWdId, comuneLabel) {
         /**
         Ricerca i monumenti in base alla chiave di ricerca comune
         **/
         // Rendo visibile la colonna con i dati tabellari
-        $().removeClass('d-none');
-        $('#appTable').DataTable({
+        $('.search-comuni-results').removeClass('d-none');
+        var monumentiQueryUrl = WIKIDATABASEQUERYURL + encodeURIComponent(
+            QUERY_SPARQL_MONUMENTI_PATTERN.replace(/{{wd}}/g, comuneWdId)
+        );
+        if (appDataTableObj !== '') {
+            appDataTableObj.destroy();
+        }
+        /**
+        var table = '<div class="row search-comuni-results">' +
+        $('.search-comuni-results-master').html() +
+        'div';
+        table.replace('appTableMaster', 'appTable');
+        **/
+        // /**
+        appDataTableObj = $('#appTable').DataTable({
+            "language": {
+                "lengthMenu": "Mostra _MENU_ monumenti per pagina",
+                "zeroRecords": "Nessun monumento trovato per questa ricerca",
+                "info": "Pagina _PAGE_ di _PAGES_",
+                "search": "Cerca",
+                "paginate": {
+                    "first":      "Primo",
+                    "last":       "Ultimo",
+                    "next":       "Succ.",
+                    "previous":   "Prec."
+                },
+                "infoEmpty": "Nessun monumento",
+                "infoFiltered": "(filtered from _MAX_ total records)"
+            },
             ajax: {
                 // "url": "js/devel-results.json",
-                "url": "https://query.wikidata.org/sparql?query=SELECT%20?idWLM%20?idWD%20?idWDLabel%20?comune%20?indirizzo%20?coord%20?commons%0AWHERE%20%7B%0A?idWD%20wdt:P131%20?comune%20.%20?comune%20wdt:P17%20wd:Q38%20.%0AOPTIONAL%20%7B%20?idWD%20wdt:P969%20?indirizzo%20.%20%7D%0AOPTIONAL%20%7B%20?idWD%20wdt:P625%20?coord%20.%20%7D%0AOPTIONAL%20%7B%20?idWD%20wdt:P373%20?commons%20.%20%7D%0A%0A%7B%20?idWD%20wdt:P2186%20?idWLM%20.%20%7D%20UNION%0A%7B%20?idWD%20wdt:P1435%20wd:Q26971668%20.%20%7D%0A%0ASERVICE%20wikibase:label%20%7B%20bd:serviceParam%20wikibase:language%20%22it,en%22.%20%7D%0A%7D%0ALIMIT%20500",
+                "url": monumentiQueryUrl,
                 // dataSrc: 'results.bindings',
                 "dataSrc": function ( json ) {
+                    // console.log(json)
                     var customData = [];
                     var headName = '';
                     var errcount = 0;  // debug
@@ -142,11 +175,15 @@ $(document).ready( function () {
                             if (isCustomHead) {
                                 prettify(customData[i], headName);
                             }
+                            // Forzo un nuovo campo custom con label del comune / luogo
+                            // che proviene dalla richiesta precedente
+                            customData[i][customHeadsName]['comuneLabel'] = comuneLabel;
                         }
-                        /** if (errcount == 0) { // debug
+                        if (errcount == 0) { // debug
                             // record perfetto
-                            console.log(customData[i])
-                        } **/
+                            // console.log(customData[i])
+                            // console.log(json.results.bindings[i])
+                        }
                     }
                     return customData;
                 }
@@ -154,12 +191,13 @@ $(document).ready( function () {
             columns: [
                 {data: 'idWLM.value'},  // 08C1450001
                 {data: 'idWDLabel.value'},  // Fortezza di Sarzanello
-                {data: 'customFields.comune.html'},  // http://www.wikidata.org/entity/Q160628
+                {data: 'customFields.comuneLabel'},  // http://www.wikidata.org/entity/Q160628
                 {data: 'indirizzo.value'},  // Via alla Fortezza
                 {data: 'customFields.coord.html'},  // Point(9.97152778 44.11510833) Long / Lat
                 {data: 'customFields.commons.html'} // https://commons.wikimedia.org/w/index.php?title=Category:Santa_Maria_Maggiore_%28Avigliana%29
             ]
         });
+        // **/
     };
 
 
@@ -215,7 +253,10 @@ $(document).ready( function () {
     $('.typeahead').bind('typeahead:select', function(ev, record) {
         // console.log('Selection: ' + search);
         // doMonumentalSearch(search);
-        console.log(record.wdid);
+        let id = wikidataUrl2id(record.wdid);
+        // Effettua la ricerca tramite identificativo WikiData del luogo
+        doMonumentalSearch(id, record.label);
+        // console.log();
     });
 
 
