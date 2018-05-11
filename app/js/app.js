@@ -73,10 +73,8 @@ var prettify_commons = function (record, fieldName) {
 // Funzione ora usata direttamente ma che potrebbe essere usata automaticamente
 // nel caso il campo comuneLabel fosse presente nel record risultato
 var prettify_comune = function (record, fieldNames) {
-  // console.log(record);
+  // console.log(record);  // debug
   var fieldName = fieldNames[0];
-  console.log(fieldName);
-  console.log(record);
   try {
       if (typeof record[fieldName] === 'undefined' || record[fieldName].value === emptyValue) {
           throw "Value undefined";
