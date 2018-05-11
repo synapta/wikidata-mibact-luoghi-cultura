@@ -13,12 +13,13 @@ SERVICE wikibase:label { bd:serviceParam wikibase:language "it". }
 }
 ORDER BY ASC (?comuneLabel)`;
 const QUERY_SPARQL_COMUNI_AUTOCOMPLETE_URL = WIKIDATABASEQUERYURL + encodeURIComponent(QUERY_SPARQL_COMUNI_AUTOCOMPLETE);
-
+// in millisecondi o in formato umanamente leggibile. Max: 2147483647ms (32bit)
+const JSON_SERVER_CACHE_TIME = '7 days';
 module.exports = function(app, apicache, passport) {
     // file statici e index.html in app/
     app.use('/', express.static('./app'));
     // app.get(/comuni\/(.+)$/, apicache('2 seconds'), function(req, res) {
-    app.get(/comuni\.json$/, apicache('1 second'), function(req, res) {
+    app.get(/comuni\.json$/, apicache(JSON_SERVER_CACHE_TIME), function(req, res) {
         try {
             let querypara = req.params[0];
             let jsonRes = [];
