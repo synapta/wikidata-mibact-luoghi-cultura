@@ -1,10 +1,11 @@
 // alert('debug!');
+// Valore usato quando il campo è assente nel record risultato
 var emptyValue = '---';
-// Elencare qui le intestazioni che necessitano di personalizzazioni
-// da sdoppiare in el.custom
-var customHeads = ['coord', 'commons', 'comune'];  // , 'comune'
 // i campi custom verranno inseriti in una proprietà chiamata:
 var customHeadsName = 'customFields';
+// Elencare qui i campi esistenti che necessitano di personalizzazioni
+// da sdoppiare in el[CustomHeadsName]
+var customHeads = ['coord', 'commons'];  // , 'comune'
 
 var prettify = function (record, fieldName) {
     /**
@@ -68,19 +69,23 @@ var prettify_commons = function (record, fieldName) {
   }
 };
 
-/**
-var prettify_comune = function (record, fieldName) {
+// Funzione ora usata direttamente ma che potrebbe essere usata automaticamente
+// nel caso il campo comuneLabel fosse presente nel record risultato
+var prettify_comune = function (record, fieldNames) {
+  // console.log(record);
+  var fieldName = fieldNames[0];
+  console.log(fieldName);
   console.log(record);
   try {
       if (typeof record[fieldName] === 'undefined' || record[fieldName].value === emptyValue) {
           throw "Value undefined";
       }
-      record[customHeadsName][fieldName] = {};
-      var zurl = record[fieldName].value;
-      var aurl =  zurl.split('/');
+      var comuneLabel = record[fieldNames[0]].value;
+      var comuneWdId = record[fieldNames[1]].value;
+      record[customHeadsName]['comuneLabel'] = {};
       record[customHeadsName][fieldName]['html'] = '<a target="_blank" href="{{url}}">{{nome}}</a>'
-      .replace(/{{url}}/g, zurl)  // url
-      .replace(/{{nome}}/g, aurl[aurl.length -1]);  // solo codice es. Q13433
+      .replace(/{{url}}/g, comuneWdId)  // url
+      .replace(/{{nome}}/g, comuneLabel);  // solo codice es. Q13433
   }
   catch (e) {
       // Fake element
@@ -89,7 +94,6 @@ var prettify_comune = function (record, fieldName) {
       };
   }
 };
-**/
 
 ////////////////////////////////
 
@@ -103,14 +107,17 @@ var appDataTableObj = '';
 
 $(document).ready( function () {
 
-    var doMonumentalSearch = function (comuneWdId, comuneLabel) {
+    var doMonumentalSearch = function (comuneWdIdOnly, comuneWdId, comuneLabel) {
         /**
         Ricerca i monumenti in base alla chiave di ricerca comune
+        comuneWdIdOnly: id del comune senza aurl
+        comuneWdId: id del comune (url)
+        comuneLabel: nome del comune
         **/
         // Rendo visibile la colonna con i dati tabellari
         $('.search-comuni-results').removeClass('d-none');
         var monumentiQueryUrl = WIKIDATABASEQUERYURL + encodeURIComponent(
-            QUERY_SPARQL_MONUMENTI_PATTERN.replace(/{{wd}}/g, comuneWdId)
+            QUERY_SPARQL_MONUMENTI_PATTERN.replace(/{{wd}}/g, comuneWdIdOnly)
         );
         if (appDataTableObj !== '') {
             appDataTableObj.destroy();
@@ -175,10 +182,15 @@ $(document).ready( function () {
                             if (isCustomHead) {
                                 prettify(customData[i], headName);
                             }
-                            // Forzo un nuovo campo custom con label del comune / luogo
-                            // che proviene dalla richiesta precedente
-                            customData[i][customHeadsName]['comuneLabel'] = comuneLabel;
                         }
+                        // Forzo un nuovo campo con label del comune / luogo
+                        // che proviene dalla richiesta precedente
+                        customData[i]['comuneLabel'] = {'type':'literal'};
+                        customData[i]['comuneLabel']['value'] = comuneLabel;
+                        customData[i]['comuneWdId'] = {'type':'literal'};
+                        customData[i]['comuneWdId']['value'] = comuneWdId;
+                        // stilizzo il campo
+                        prettify_comune(customData[i], ['comuneLabel', 'comuneWdId']);
                         if (errcount == 0) { // debug
                             // record perfetto
                             // console.log(customData[i])
@@ -191,7 +203,7 @@ $(document).ready( function () {
             columns: [
                 {data: 'idWLM.value'},  // 08C1450001
                 {data: 'idWDLabel.value'},  // Fortezza di Sarzanello
-                {data: 'customFields.comuneLabel'},  // http://www.wikidata.org/entity/Q160628
+                {data: 'customFields.comuneLabel.html'},  // link al comune
                 {data: 'indirizzo.value'},  // Via alla Fortezza
                 {data: 'customFields.coord.html'},  // Point(9.97152778 44.11510833) Long / Lat
                 {data: 'customFields.commons.html'} // https://commons.wikimedia.org/w/index.php?title=Category:Santa_Maria_Maggiore_%28Avigliana%29
@@ -255,7 +267,7 @@ $(document).ready( function () {
         // doMonumentalSearch(search);
         let id = wikidataUrl2id(record.wdid);
         // Effettua la ricerca tramite identificativo WikiData del luogo
-        doMonumentalSearch(id, record.label);
+        doMonumentalSearch(id, record.wdid, record.label);
         // console.log();
     });
 
