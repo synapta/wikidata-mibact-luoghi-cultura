@@ -1,6 +1,7 @@
 // alert('debug!');
 // Valore usato quando il campo è assente nel record risultato
-var emptyValue = '---';
+// Può essere testo o HTML
+var emptyValue = '<span class="none">&mdash;</span>';
 // i campi custom verranno inseriti in una proprietà chiamata:
 var customHeadsName = 'customFields';
 // Elencare qui i campi esistenti che necessitano di personalizzazioni
@@ -119,6 +120,7 @@ $(document).ready( function () {
         var monumentiQueryUrl = WIKIDATABASEQUERYURL + encodeURIComponent(
             QUERY_SPARQL_MONUMENTI_PATTERN.replace(/{{wd}}/g, comuneWdIdOnly)
         );
+        // Rigenero la tabella per una nuova richiesta DataTable
         if (appDataTableObj !== '') {
             appDataTableObj.destroy();
         }
@@ -134,7 +136,7 @@ $(document).ready( function () {
                 "lengthMenu": "Mostra _MENU_ monumenti per pagina",
                 "zeroRecords": "Nessun monumento trovato per questa ricerca",
                 "info": "Pagina _PAGE_ di _PAGES_",
-                "search": "Cerca",
+                "search": "Cerca monumenti in questo luogo",
                 "paginate": {
                     "first":      "Primo",
                     "last":       "Ultimo",
@@ -142,7 +144,7 @@ $(document).ready( function () {
                     "previous":   "Prec."
                 },
                 "infoEmpty": "Nessun monumento",
-                "infoFiltered": "(filtered from _MAX_ total records)"
+                "infoFiltered": "(trovati fra i _MAX_ monumenti del luogo)"
             },
             ajax: {
                 // "url": "js/devel-results.json",
@@ -234,14 +236,15 @@ $(document).ready( function () {
 
         // 1mo passo: ricerca del comune
         $('.search-comuni .typeahead').typeahead({
-          hint: true,
-          highlight: true,
-          minLength: 1
+          'hint': true,
+          'highlight': true,
+          'minLength': 1
         },
         {
-          name: 'comuni',
-          displayKey: 'label',  // quale campo compare nella tendina di selez?
-          source: comuniAutocomplete
+          'name': 'comuni',
+          'displayKey': 'label',  // quale campo compare nella tendina di selez?
+          'source': comuniAutocomplete,
+          'limit': 10
         });
     };
 
@@ -256,6 +259,8 @@ $(document).ready( function () {
             alert('Error retrieving data');
         },
         success: function(json) {
+            // Attiva box di ricerca ora che ha i risultati
+            $('#comuniSearch').removeAttr('disabled');
             // var newJson = enrichJson(json);
             initializeAutocomplete(json);
         }

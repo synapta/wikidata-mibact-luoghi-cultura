@@ -14,22 +14,22 @@
     <title>Wikidata MIBACT Luoghi della Cultura</title>
   </head>
   <body>
-    <div class="container">
+    <div id="app" class="container">
       <div class="row header">
         <div class="col-sm">
           <h1>Wikidata MIBACT Luoghi della Cultura</h1>
         </div>
       </div>
-      <div class="row search-comuni">
-        <div class="col-sm">
-          <input type="text" class="form-control typeahead" id="comuniSearch" placeholder="Cerca un comune per vederne i monumenti">
+      <div class="row search-comuni justify-content-md-center">
+        <div class="col-sm-8">
+          <input type="text" disabled="disabled" class="form-control typeahead" id="comuniSearch" placeholder="Cerca un luogo (comune, regione, ...)">
         </div>
       </div>
       <div class="row search-comuni-results d-none">
-        <div class="col-sm">
+        <div class="col-sm p-0">
           <!-- begin TABLE -->
           <div class="table-responsive-lg">
-            <table id="appTable" class="table">
+            <table id="appTable" class="table m-0">
               <thead>
                 <tr>
                   <th>IDs</th>
