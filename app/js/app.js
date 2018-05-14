@@ -6,7 +6,7 @@ var emptyValue = '<span class="none">&mdash;</span>';
 var customHeadsName = 'customFields';
 // Elencare qui i campi esistenti che necessitano di personalizzazioni
 // da sdoppiare in el[CustomHeadsName]
-var customHeads = ['coord', 'commons'];  // , 'comune'
+var customHeads = ['coord', 'commons', 'idWDLabel'];  // , 'comune'
 
 var prettify = function (record, fieldName) {
     /**
@@ -24,7 +24,6 @@ var prettify = function (record, fieldName) {
 var prettify_coord = function (record, fieldName) {
     // Trasformo coordinate in link cliccabile
     // replico intero record
-    //// record[customHeadsName][fieldName] = record[fieldName];
     try {
         if (typeof record[fieldName] === 'undefined' || record[fieldName].value === emptyValue) {
             throw "Value undefined";
@@ -70,6 +69,32 @@ var prettify_commons = function (record, fieldName) {
   }
 };
 
+
+var prettify_idWDLabel = function (record, fieldName) {
+  try {
+      if (typeof record[fieldName] === 'undefined' || record[fieldName].value === emptyValue) {
+          throw "Label undefined";
+      }
+      // Url della entità (monumento)
+      var idName = 'idWD';
+      if (typeof record[idName] === 'undefined' || record[idName].value === emptyValue) {
+          throw "Cannot generate url, no WDid defined in record";
+      }
+      var entityUrl = record[idName].value;
+      record[customHeadsName][fieldName] = {};
+      record[customHeadsName][fieldName]['html'] = '<a target="_blank" href="{{url}}">{{label}}</a>'
+      .replace(/{{url}}/g, entityUrl)
+      .replace(/{{label}}/g, record[fieldName].value);
+  }
+  catch (e) {
+      // Elemento fittizio
+      record[customHeadsName][fieldName] = {
+          'html': emptyValue
+      };
+  }
+};
+
+
 // Funzione ora usata direttamente ma che potrebbe essere usata automaticamente
 // nel caso il campo comuneLabel fosse presente nel record risultato
 var prettify_comune = function (record, fieldNames) {
@@ -87,7 +112,7 @@ var prettify_comune = function (record, fieldNames) {
       .replace(/{{nome}}/g, comuneLabel);  // solo codice es. Q13433
   }
   catch (e) {
-      // Fake element
+      // Record fittizio
       record[customHeadsName][fieldName] = {
           'html': emptyValue
       };
@@ -122,13 +147,6 @@ $(document).ready( function () {
         if (appDataTableObj !== '') {
             appDataTableObj.destroy();
         }
-        /**
-        var table = '<div class="row search-comuni-results">' +
-        $('.search-comuni-results-master').html() +
-        'div';
-        table.replace('appTableMaster', 'appTable');
-        **/
-        // /**
         appDataTableObj = $('#appTable').DataTable({
             "language": {
                 "lengthMenu": "Mostra _MENU_ monumenti per pagina",
@@ -193,7 +211,7 @@ $(document).ready( function () {
                         prettify_comune(customData[i], ['comuneLabel', 'comuneWdId']);
                         if (errcount == 0) { // debug
                             // record perfetto
-                            // console.log(customData[i])
+                            console.log(customData[i])
                             // console.log(json.results.bindings[i])
                         }
                     }
@@ -202,7 +220,7 @@ $(document).ready( function () {
             },
             columns: [
                 {data: 'idWLM.value'},  // 08C1450001
-                {data: 'idWDLabel.value'},  // Fortezza di Sarzanello
+                {data: 'customFields.idWDLabel.html'},  // Fortezza di Sarzanello
                 {data: 'customFields.comuneLabel.html'},  // link al comune
                 {data: 'indirizzo.value'},  // Via alla Fortezza
                 {data: 'customFields.coord.html'},  // Point(9.97152778 44.11510833) Long / Lat

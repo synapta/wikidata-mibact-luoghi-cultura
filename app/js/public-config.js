@@ -1,3 +1,4 @@
+// url base per le query SPARQL su Wikidata
 const WIKIDATABASEQUERYURL =  "https://query.wikidata.org/sparql?query=";
 // Elenca i comuni da visualizzare nell'autocomplete
 const QUERY_SPARQL_MONUMENTI_PATTERN = `SELECT ?idWLM ?idWD ?idWDLabel ?indirizzo ?coord ?commons
