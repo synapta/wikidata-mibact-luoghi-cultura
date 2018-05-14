@@ -209,11 +209,11 @@ $(document).ready( function () {
                         customData[i]['comuneWdId']['value'] = comuneWdId;
                         // stilizzo il campo
                         prettify_comune(customData[i], ['comuneLabel', 'comuneWdId']);
-                        if (errcount == 0) { // debug
+                        // if (errcount == 0) { // debug
                             // record perfetto
-                            console.log(customData[i])
+                            // console.log(customData[i])
                             // console.log(json.results.bindings[i])
-                        }
+                        // }
                     }
                     return customData;
                 }
