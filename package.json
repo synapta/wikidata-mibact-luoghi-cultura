@@ -1,0 +1,30 @@
+{
+  "name": "wikidata-mibact-luoghi-cultura",
+  "version": "1.0.0",
+  "description": "Il MiBACT pubblica in linked open data i cosiddetti “luoghi della cultura”, ovvero dati riguardanti i beni culturali immobili italiani e le manifestazioni culturali organizzate dal Ministero e dagli altri Istituti. Questo progetto ha lo scopo di sincronizzare la base dati italiana con Wikidata, per migliorare la fruibilità dei dati, anche in ottica Wiki Loves Monuments.",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/synapta/wikidata-mibact-luoghi-cultura.git"
+  },
+  "author": "Synapta srl",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/synapta/wikidata-mibact-luoghi-cultura/issues"
+  },
+  "homepage": "https://github.com/synapta/wikidata-mibact-luoghi-cultura#readme",
+  "dependencies": {
+    "apicache": "^1.2.1",
+    "compression": "^1.7.2",
+    "express": "^4.16.3",
+    "morgan": "^1.9.0",
+    "request": "^2.85.0"
+  }
+}
