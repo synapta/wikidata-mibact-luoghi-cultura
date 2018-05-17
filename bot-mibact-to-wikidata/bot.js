@@ -121,11 +121,8 @@ var createNewWikidataItem = function (elem, cb) {
         });
     }
 
-
     //TODO fai addon coordinate
     //P625: { value: obj.coord, references: { P143: 'Q52897564' } }, //coordinate
-
-
 }
 
 var updateWikidataItem = function (wd, elem) {
@@ -139,23 +136,35 @@ var updateWikidataItem = function (wd, elem) {
 
 var schiacciaElem = function (elem) {
     let newelem = {};
-    newelem.label = elem.label.value;
+    newelem.label = elem.label.value.replace(/\\"/, '"');
     if (elem.id !== undefined) newelem.id = elem.id.value;
     if (elem.s !== undefined) newelem.uri = elem.s.value;
-    if (elem.lat !== undefined && elem.long !== undefined) newelem.coord = elem.lat.value + " " + elem.long.value;
+    if (elem.lat !== undefined && elem.long !== undefined) 
+        newelem.coord = { 
+            latitude: parseFloat(elem.lat.value),
+            longitude: parseFloat(elem.long.value),
+            altitude: null,
+            precision: 0.01,
+            globe: 'http://www.wikidata.org/entity/Q2' 
+        };
     if (elem.comune !== undefined) newelem.comune = elem.comune.value;
     if (elem.fullAddress !== undefined) newelem.fullAddress = elem.fullAddress.value;
     if (elem.website !== undefined) newelem.website = elem.website.value.replace(/\s/g, '');
     if (elem.telephone !== undefined) {
         newelem.telephone = elem.telephone.value.replace(/\./g, '').replace(/Tel/ig, '');
         if (newelem.telephone.includes(";")) newelem.telephone = newelem.telephone.split(";")[0];
-        if (!newelem.telephone.startsWith("+39")) newelem.telephone = "+39 " + newelem.telephone.replace(/\s+/g, '');
-        newelem.telephone = newelem.telephone.replace(/\s+$/g, '');
+        if (newelem.telephone.includes(" - ")) newelem.telephone = newelem.telephone.split(" - ")[0];
+        if (newelem.telephone.includes('+ ')) newelem.telephone = newelem.telephone.replace("+ ", "+");
+        if (!newelem.telephone.replace(/\s+/g, '').startsWith("+39")) {
+            console.log(newelem.telephone)  
+            newelem.telephone = "+39 " + newelem.telephone.replace(/\s+/g, '');
+        }
+        newelem.telephone = newelem.telephone.replace(/\s+$/g, '').replace("/", '');
     }
     if (elem.fax !== undefined) {
         newelem.fax = elem.fax.value.replace(/\./g, '').replace(/Tel/ig, '');
         if (!newelem.fax.startsWith("+39")) newelem.fax = "+39 " + newelem.fax.replace(/\s+/g, '');
-        newelem.fax = newelem.fax.value.replace(/\s+$/g, '');
+        newelem.fax = newelem.fax.replace(/\s+$/g, '');
     }
     if (elem.email !== undefined) newelem.email = elem.email.value.replace(/\s+$/g, '');
     if (elem.cap !== undefined) newelem.cap = elem.cap.value;
@@ -175,6 +184,7 @@ var schiacciaElem = function (elem) {
                 break;
         }
     }
+    console.log(newelem)
     return newelem;
 }
 
@@ -199,11 +209,14 @@ var createItem = function (obj, created) {
     if (obj.telephone !== undefined && obj.telephone !== '') {
         myClaims["P1329"] = { value: obj.telephone, references: { P143: 'Q52897564' } } //telefono
     }
-    if (obj.email !== undefined && obj.email !== '') {
-        myClaims["P968"] = { value: obj.email, references: { P143: 'Q52897564' } } //email
-    }
+    //if (obj.email !== undefined && obj.email !== '') {
+    //    myClaims["P968"] = { value: obj.email, references: { P143: 'Q52897564' } } //email
+    //}
     if (obj.fax !== undefined && obj.fax !== '') {
         myClaims["P2900"] = { value: obj.fax, references: { P143: 'Q52897564' } } //fax
+    }
+    if (obj.coord !== undefined && obj.coord !== {}) {
+        myClaims["P625"] = { value: obj.coord, references: { P143: 'Q52897564' } } // globcoordinates
     }
     if (obj.cap !== undefined && obj.cap !== '') {
         myClaims["P281"] = { value: obj.cap, references: { P143: 'Q52897564' } } //cap
@@ -212,8 +225,6 @@ var createItem = function (obj, created) {
         myClaims["P528"] = { value: obj.id, qualifiers: { P972: 'Q52896862', P2699 : obj.uri } ,
                                references: { P143: 'Q52897564' } }
     }
-
-    //console.log(myClaims)
 
     wdEdit.entity.create({
         labels: { it: obj.label},
