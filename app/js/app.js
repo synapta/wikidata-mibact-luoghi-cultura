@@ -29,7 +29,7 @@ var prettify_coord = function (record, fieldName) {
             throw "Value undefined";
         }
         // modifico ciò che mi interessa
-        var re = /Point\(([01234567890.]+) ([01234567890.]+)\)/;
+        var re = /Point\(([0-9\.]+) ([0-9\.]+)\)/;
         // es. Point(9.675583 45.703861)
         // formato Long / Lat
         var newValueMatch = record[fieldName].value.match(re);
