@@ -11,7 +11,10 @@ exports.queryMibact = `
         OPTIONAL { ?s cis:identifier ?id . }
         OPTIONAL { ?s geo:long ?long . ?s geo:lat ?lat . }
         OPTIONAL { ?s owl:sameAs ?owl . }
-        OPTIONAL { ?s cis:hasDiscipline ?disciplina . }
+        OPTIONAL {
+            ?s cis:hasDiscipline ?disciplina . 
+            FILTER (CONTAINS(STR(?disciplina), "iccd/cf"))
+        }
         OPTIONAL {
             ?s cis:hasContactPoint ?hasContactPoint .
             ?hasContactPoint rdfs:label ?contactPointLabel .
