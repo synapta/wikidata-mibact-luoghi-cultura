@@ -10,9 +10,12 @@ exports.queryMibact = `
         OPTIONAL { ?s dc:type ?type . }
         OPTIONAL { ?s cis:identifier ?id . }
         OPTIONAL { ?s geo:long ?long . ?s geo:lat ?lat . }
-        OPTIONAL { ?s owl:sameAs ?owl . }
         OPTIONAL {
-            ?s cis:hasDiscipline ?disciplina . 
+            ?s owl:sameAs ?owl . 
+            FILTER (CONTAINS(STR(?owl), "it.dbpedia.org"))
+        }
+        OPTIONAL {
+            ?s cis:hasDiscipline ?disciplina .
             FILTER (CONTAINS(STR(?disciplina), "iccd/cf"))
         }
         OPTIONAL {
