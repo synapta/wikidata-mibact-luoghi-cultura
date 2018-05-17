@@ -1,4 +1,3 @@
-// alert('debug!');
 // Valore usato quando il campo è assente nel record risultato
 // Può essere testo o HTML
 var emptyValue = '<span class="none">&mdash;</span>';
@@ -6,7 +5,7 @@ var emptyValue = '<span class="none">&mdash;</span>';
 var customHeadsName = 'customFields';
 // Elencare qui i campi esistenti che necessitano di personalizzazioni
 // da sdoppiare in el[CustomHeadsName]
-var customHeads = ['coord', 'commons', 'idWDLabel'];  // , 'comune'
+var customHeads = ['coord', 'commons', 'idWDLabel', 'idCustodeLabel', 'immagine'];
 
 var prettify = function (record, fieldName) {
     /**
@@ -70,6 +69,24 @@ var prettify_commons = function (record, fieldName) {
 };
 
 
+var prettify_immagine = function (record, fieldName) {
+  try {
+      if (typeof record[fieldName] === 'undefined' || record[fieldName].value === emptyValue) {
+          throw "Value undefined";
+      }
+      record[customHeadsName][fieldName] = {};
+      record[customHeadsName][fieldName]['html'] = '<a target="_blank" href="{{immagine}}">Immagine</a>'
+      .replace(/{{immagine}}/g, record[fieldName].value);
+  }
+  catch (e) {
+      // Fake element
+      record[customHeadsName][fieldName] = {
+          'html': emptyValue
+      };
+  }
+};
+
+
 var prettify_idWDLabel = function (record, fieldName) {
   try {
       if (typeof record[fieldName] === 'undefined' || record[fieldName].value === emptyValue) {
@@ -77,6 +94,31 @@ var prettify_idWDLabel = function (record, fieldName) {
       }
       // Url della entità (monumento)
       var idName = 'idWD';
+      if (typeof record[idName] === 'undefined' || record[idName].value === emptyValue) {
+          throw "Cannot generate url, no WDid defined in record";
+      }
+      var entityUrl = record[idName].value;
+      record[customHeadsName][fieldName] = {};
+      record[customHeadsName][fieldName]['html'] = '<a target="_blank" href="{{url}}">{{label}}</a>'
+      .replace(/{{url}}/g, entityUrl)
+      .replace(/{{label}}/g, record[fieldName].value);
+  }
+  catch (e) {
+      // Elemento fittizio
+      record[customHeadsName][fieldName] = {
+          'html': emptyValue
+      };
+  }
+};
+
+
+var prettify_idCustodeLabel = function (record, fieldName) {
+  try {
+      if (typeof record[fieldName] === 'undefined' || record[fieldName].value === emptyValue) {
+          throw "Label undefined";
+      }
+      // Url della entità (monumento)
+      var idName = 'idCustode';
       if (typeof record[idName] === 'undefined' || record[idName].value === emptyValue) {
           throw "Cannot generate url, no WDid defined in record";
       }
@@ -167,7 +209,7 @@ $(document).ready( function () {
                 "url": monumentiQueryUrl,
                 // dataSrc: 'results.bindings',
                 "dataSrc": function ( json ) {
-                    // console.log(json)
+                    console.log(json)
                     var customData = [];
                     var headName = '';
                     var errcount = 0;  // debug
@@ -209,11 +251,11 @@ $(document).ready( function () {
                         customData[i]['comuneWdId']['value'] = comuneWdId;
                         // stilizzo il campo
                         prettify_comune(customData[i], ['comuneLabel', 'comuneWdId']);
-                        // if (errcount == 0) { // debug
+                         /*if (errcount == 0) { // debug
                             // record perfetto
-                            // console.log(customData[i])
-                            // console.log(json.results.bindings[i])
-                        // }
+                             console.log(customData[i])
+                             console.log(json.results.bindings[i])
+                         }*/
                     }
                     return customData;
                 }
@@ -221,9 +263,11 @@ $(document).ready( function () {
             columns: [
                 {data: 'idWLM.value'},  // 08C1450001
                 {data: 'customFields.idWDLabel.html'},  // Fortezza di Sarzanello
+                {data: 'customFields.idCustodeLabel.html'},  // Fortezza di Sarzanello
                 {data: 'customFields.comuneLabel.html'},  // link al comune
                 {data: 'indirizzo.value'},  // Via alla Fortezza
                 {data: 'customFields.coord.html'},  // Point(9.97152778 44.11510833) Long / Lat
+                {data: 'customFields.immagine.html'},
                 {data: 'customFields.commons.html'} // https://commons.wikimedia.org/w/index.php?title=Category:Santa_Maria_Maggiore_%28Avigliana%29
             ]
         });
@@ -264,7 +308,6 @@ $(document).ready( function () {
         });
     };
 
-
     // AVVIO al document ready
     // Carica dati per autocomplete
     $.ajax ({
@@ -291,7 +334,4 @@ $(document).ready( function () {
         doMonumentalSearch(id, record.wdid, record.label);
         // console.log();
     });
-
-
-
 });
