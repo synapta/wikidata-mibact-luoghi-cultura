@@ -3,7 +3,7 @@ exports.queryMibact = `
     PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
     PREFIX dc: <http://purl.org/dc/elements/1.1/>
 
-    SELECT ?s ?label ?type ?id ?long ?lat ?owl ?disciplina ?telephone ?email ?fax ?website ?pec ?comune ?provincia ?stato ?cap ?fullAddress
+    SELECT DISTINCT ?s ?label ?type ?id ?long ?lat ?owl ?disciplina ?telephone ?email ?fax ?website ?pec ?comune ?provincia ?stato ?cap ?fullAddress
     WHERE {
         ?s a cis:CulturalInstituteOrSite .
         ?s rdfs:label ?label .
@@ -11,7 +11,7 @@ exports.queryMibact = `
         OPTIONAL { ?s cis:identifier ?id . }
         OPTIONAL { ?s geo:long ?long . ?s geo:lat ?lat . }
         OPTIONAL {
-            ?s owl:sameAs ?owl . 
+            ?s owl:sameAs ?owl .
             FILTER (CONTAINS(STR(?owl), "it.dbpedia.org"))
         }
         OPTIONAL {
@@ -38,7 +38,7 @@ exports.queryMibact = `
             OPTIONAL { ?address cis:fullAddress ?fullAddress . }
         }
     }
-    OFFSET 18 LIMIT 100
+    ORDER BY RAND()
 `;
 
 exports.queryWikidata = function (item) {
