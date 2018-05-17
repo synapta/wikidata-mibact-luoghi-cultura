@@ -42,11 +42,10 @@ var callWikidata = function (arr, index) {
     });
 }
 
+var count = 0;
 
 var askWikidata = function(elem, cb) {
     console.log("Asking Wikidata " + elem.label.value);
-    //console.log(elem)
-    //console.log(queries.queryWikidata(elem))
 
     let endpointWikidata = {
         url: "https://query.wikidata.org/sparql?query=" + encodeURIComponent(queries.queryWikidata(elem)),
@@ -69,14 +68,16 @@ var askWikidata = function(elem, cb) {
                 });
             //Found exactly one
             } else if (arr.length === 1) {
-                updateWikidataItem(arr[0].item.value, elem);
-                cb();
+                updateWikidataItem(arr[0].item.value, elem, function() {
+                    cb();
+                })
             //Found more than one
             } else if (arr.length > 1) {
                 //If one is predominant
                 if (arr[0].c.value > arr[1].c.value) {
-                    updateWikidataItem(arr[0].item.value, elem);
-                    cb();
+                    updateWikidataItem(arr[0].item.value, function() {
+                        cb();
+                    })
                 //If no consensus
                 } else {
                     createNewWikidataItem(elem, function (){
@@ -90,7 +91,6 @@ var askWikidata = function(elem, cb) {
 
 var createNewWikidataItem = function (elem, cb) {
     console.log("Creating new Wikidata item");
-    //console.log(elem)
 
     let obj = schiacciaElem(elem);
 
@@ -120,18 +120,95 @@ var createNewWikidataItem = function (elem, cb) {
             cb();
         });
     }
-
-    //TODO fai addon coordinate
-    //P625: { value: obj.coord, references: { P143: 'Q52897564' } }, //coordinate
 }
 
-var updateWikidataItem = function (wd, elem) {
-    console.log("Update Wikidata item " + wd);
+var getPropValues = function(elem, prop) {
+    let array = []
+    elem.forEach(function(el){
+        if (el.predicate.value.replace('http://www.wikidata.org/prop/direct/', '') === prop) {
+            array.push(el.object.value)
+        }
+    })
+    return array;
+}
+
+var shouldAddNewStatement = function (elem, obj, prop, valueName) {
+    let array = getPropValues(elem, prop);
+    console.log(array, obj[valueName])
+    var statement = false
+    if (array.indexOf(obj[valueName]) < 0) {
+        console.log("not found")
+        statement = { value: obj[valueName], references: { P143: 'Q52897564' } };
+    }
+    console.log(prop, statement)
+    return statement
+
+}
+
+var updateWikidataItem = function (wd, elem, cb) {
 
     let obj = schiacciaElem(elem);
+    let endpointWikidata = {
+        url: "https://query.wikidata.org/sparql?query=" + encodeURIComponent('DESCRIBE <' + wd + '>'),
+        headers: {
+          'Accept': 'application/json'
+        },
+        retryDelay: 5000
+    };
+    request(endpointWikidata, function (error, response, body) {
+        let wdObj = JSON.parse(body).results.bindings;
+        let myClaims = {};
+       
+        let propDict = {
+            //"P131": 'comune',
+            "P969": 'fullAddress',
+            "P856": 'website',
+            "P1329": 'telephone',
+            "P968": 'email',
+            "P2900": 'fax',
+            //"P625": 'coord',
+            "P281": 'cap',
+            "P528": 'id'
+        };
+ 
+        let countries = getPropValues(wdObj, 'P17') 
+        if (countries.indexOf('http://www.wikidata.org/entity/Q38') < 0)
+                myClaims['P17'] = { value: 'Q38', references: { P143: 'Q52897564' } }
+        
+        let types = getPropValues(wdObj, 'P1435');
+        if (types.indexOf('http://www.wikidata.org/entity/Q26971668') < 0)
+                myClaims['P1435'] = { value: 'Q26971668', references: { P143: 'Q52897564' } }
+        
+        Object.keys(propDict).forEach(function(key) {
+            let newItem = shouldAddNewStatement(wdObj, obj, key, propDict[key]);
+            if (newItem) myClaims[key] = newItem;
+        });
 
-    //wdEdit.alias.add(wd.replace("http://www.wikidata.org/entity/", ""), 'it', obj.label);
-    //TODO controlla che i dati non ci siano già
+        console.log(wd.replace('http://www.wikidata.org/entity/', ''), JSON.stringify(myClaims,null,4))
+        //if (false) {
+        if (Object.keys(myClaims).length > 0) {
+            console.log("Update Wikidata item " + wd);
+            wdEdit.entity.edit({
+                id: wd.replace('http://www.wikidata.org/entity/', ''),
+                claims: myClaims
+            }).then(re => {
+                if (re.success) {
+                    console.log("Updated!");
+                    cb();
+                } else {
+                    console.log(re);
+                    process.exit(0);
+                }
+            }).catch(err => {
+                console.log("Something wrong!");
+                console.log(myClaims)
+                console.log(JSON.stringify(err));
+                process.exit(0);
+            });
+        } else {
+            cb();
+        }
+    });
 }
 
 var schiacciaElem = function (elem) {
@@ -139,13 +216,13 @@ var schiacciaElem = function (elem) {
     newelem.label = elem.label.value.replace(/\\"/, '"');
     if (elem.id !== undefined) newelem.id = elem.id.value;
     if (elem.s !== undefined) newelem.uri = elem.s.value;
-    if (elem.lat !== undefined && elem.long !== undefined) 
-        newelem.coord = { 
+    if (elem.lat !== undefined && elem.long !== undefined && !isNaN(parseFloat(elem.lat.value)) && !isNaN(parseFloat(elem.long.value)) )
+        newelem.coord = {
             latitude: parseFloat(elem.lat.value),
             longitude: parseFloat(elem.long.value),
             altitude: null,
-            precision: 0.01,
-            globe: 'http://www.wikidata.org/entity/Q2' 
+            precision: 0.00001,
+            globe: 'http://www.wikidata.org/entity/Q2'
         };
     if (elem.comune !== undefined) newelem.comune = elem.comune.value;
     if (elem.fullAddress !== undefined) newelem.fullAddress = elem.fullAddress.value;
@@ -156,7 +233,7 @@ var schiacciaElem = function (elem) {
         if (newelem.telephone.includes(" - ")) newelem.telephone = newelem.telephone.split(" - ")[0];
         if (newelem.telephone.includes('+ ')) newelem.telephone = newelem.telephone.replace("+ ", "+");
         if (!newelem.telephone.replace(/\s+/g, '').startsWith("+39")) {
-            console.log(newelem.telephone)  
+            console.log(newelem.telephone)
             newelem.telephone = "+39 " + newelem.telephone.replace(/\s+/g, '');
         }
         newelem.telephone = newelem.telephone.replace(/\s+$/g, '').replace("/", '');
@@ -184,6 +261,8 @@ var schiacciaElem = function (elem) {
                 break;
         }
     }
+    count++
+    console.log('>>>>>>>> Counter: ', count)
     console.log(newelem)
     return newelem;
 }
