@@ -75,7 +75,7 @@ var askWikidata = function(elem, cb) {
             } else if (arr.length > 1) {
                 //If one is predominant
                 if (arr[0].c.value > arr[1].c.value) {
-                    updateWikidataItem(arr[0].item.value, function() {
+                    updateWikidataItem(arr[0].item.value, elem, function() {
                         cb();
                     })
                 //If no consensus
@@ -133,14 +133,23 @@ var getPropValues = function(elem, prop) {
 }
 
 var shouldAddNewStatement = function (elem, obj, prop, valueName) {
-    let array = getPropValues(elem, prop);
-    console.log(array, obj[valueName])
-    var statement = false
-    if (array.indexOf(obj[valueName]) < 0) {
-        console.log("not found")
-        statement = { value: obj[valueName], references: { P143: 'Q52897564' } };
+    var testVar = obj[valueName]
+    if (prop === 'P31') {
+        testVar = 'http://www.wikidata.org/entity/' + obj[valueName];
     }
-    console.log(prop, statement)
+    
+    if (prop === 'P625') {
+        testVar = "Point(" + obj[valueName].latitude.toString() + "," + obj[valueName].longitude.toString() + ")";
+    }
+
+    let array = getPropValues(elem, prop);
+
+
+    var statement = false
+    if (array.indexOf(testVar) < 0) {
+        if (obj[valueName] !== undefined && obj[valueName] !== '')
+            statement = { value: obj[valueName], references: { P143: 'Q52897564' } };
+    }
     return statement
 
 }
@@ -160,13 +169,14 @@ var updateWikidataItem = function (wd, elem, cb) {
         let myClaims = {};
        
         let propDict = {
+            "P31": 'type',
             //"P131": 'comune',
             "P969": 'fullAddress',
             "P856": 'website',
             "P1329": 'telephone',
             "P968": 'email',
             "P2900": 'fax',
-            //"P625": 'coord',
+            "P625": 'coord',
             "P281": 'cap',
             "P528": 'id'
         };
@@ -180,11 +190,12 @@ var updateWikidataItem = function (wd, elem, cb) {
                 myClaims['P1435'] = { value: 'Q26971668', references: { P143: 'Q52897564' } }
         
         Object.keys(propDict).forEach(function(key) {
-            let newItem = shouldAddNewStatement(wdObj, obj, key, propDict[key]);
-            if (newItem) myClaims[key] = newItem;
+            if (obj[propDict[key]] !== undefined) {
+                let newItem = shouldAddNewStatement(wdObj, obj, key, propDict[key]);
+                if (newItem) myClaims[key] = newItem;
+            }
         });
 
-        console.log(wd.replace('http://www.wikidata.org/entity/', ''), JSON.stringify(myClaims,null,4))
         //if (false) {
         if (Object.keys(myClaims).length > 0) {
             console.log("Update Wikidata item " + wd);
@@ -233,7 +244,6 @@ var schiacciaElem = function (elem) {
         if (newelem.telephone.includes(" - ")) newelem.telephone = newelem.telephone.split(" - ")[0];
         if (newelem.telephone.includes('+ ')) newelem.telephone = newelem.telephone.replace("+ ", "+");
         if (!newelem.telephone.replace(/\s+/g, '').startsWith("+39")) {
-            console.log(newelem.telephone)
             newelem.telephone = "+39 " + newelem.telephone.replace(/\s+/g, '');
         }
         newelem.telephone = newelem.telephone.replace(/\s+$/g, '').replace("/", '');
@@ -263,7 +273,6 @@ var schiacciaElem = function (elem) {
     }
     count++
     console.log('>>>>>>>> Counter: ', count)
-    console.log(newelem)
     return newelem;
 }
 
@@ -288,9 +297,9 @@ var createItem = function (obj, created) {
     if (obj.telephone !== undefined && obj.telephone !== '') {
         myClaims["P1329"] = { value: obj.telephone, references: { P143: 'Q52897564' } } //telefono
     }
-    //if (obj.email !== undefined && obj.email !== '') {
-    //    myClaims["P968"] = { value: obj.email, references: { P143: 'Q52897564' } } //email
-    //}
+    if (obj.email !== undefined && obj.email !== '') {
+        myClaims["P968"] = { value: obj.email, references: { P143: 'Q52897564' } } //email
+    }
     if (obj.fax !== undefined && obj.fax !== '') {
         myClaims["P2900"] = { value: obj.fax, references: { P143: 'Q52897564' } } //fax
     }
