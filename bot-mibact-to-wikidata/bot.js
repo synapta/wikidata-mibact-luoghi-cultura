@@ -75,7 +75,7 @@ var askWikidata = function(elem, cb) {
             } else if (arr.length > 1) {
                 //If one is predominant
                 if (arr[0].c.value > arr[1].c.value) {
-                    updateWikidataItem(arr[0].item.value, function() {
+                    updateWikidataItem(arr[0].item.value, elem, function() {
                         cb();
                     })
                 //If no consensus
@@ -89,6 +89,20 @@ var askWikidata = function(elem, cb) {
     });
 }
 
+var getComuneQ = function(comune, cb) {
+    let endpointWikidata = {
+        url: "https://query.wikidata.org/sparql?query=" + encodeURIComponent(queries.queryComuneWikidata(comune)),
+        headers: {
+          'Accept': 'application/json'
+        },
+        retryDelay: 5000
+    };
+    request(endpointWikidata, function (error, response, body) {
+        cb(error, response, body)
+    })
+}
+
+
 var createNewWikidataItem = function (elem, cb) {
     console.log("Creating new Wikidata item");
 
@@ -96,14 +110,7 @@ var createNewWikidataItem = function (elem, cb) {
 
     if (obj.comune !== undefined) {
         console.log("Converting comune into Q...");
-        let endpointWikidata = {
-            url: "https://query.wikidata.org/sparql?query=" + encodeURIComponent(queries.queryComuneWikidata(obj.comune)),
-            headers: {
-              'Accept': 'application/json'
-            },
-            retryDelay: 5000
-        };
-        request(endpointWikidata, function (error, response, body) {
+        getComuneQ(obj.comune, function(error, response, body) {
             if (error) {
                 console.log('error:', error);
             } else {
@@ -133,14 +140,23 @@ var getPropValues = function(elem, prop) {
 }
 
 var shouldAddNewStatement = function (elem, obj, prop, valueName) {
-    let array = getPropValues(elem, prop);
-    console.log(array, obj[valueName])
-    var statement = false
-    if (array.indexOf(obj[valueName]) < 0) {
-        console.log("not found")
-        statement = { value: obj[valueName], references: { P143: 'Q52897564' } };
+    var testVar = obj[valueName]
+    if (prop === 'P31') {
+        testVar = 'http://www.wikidata.org/entity/' + obj[valueName];
     }
-    console.log(prop, statement)
+
+    if (prop === 'P625') {
+        testVar = "Point(" + obj[valueName].latitude.toString() + "," + obj[valueName].longitude.toString() + ")";
+    }
+
+    let array = getPropValues(elem, prop);
+
+
+    var statement = false
+    if (array.indexOf(testVar) < 0) {
+        if (obj[valueName] !== undefined && obj[valueName] !== '')
+            statement = { value: obj[valueName], references: { P143: 'Q52897564' } };
+    }
     return statement
 
 }
@@ -148,6 +164,24 @@ var shouldAddNewStatement = function (elem, obj, prop, valueName) {
 var updateWikidataItem = function (wd, elem, cb) {
 
     let obj = schiacciaElem(elem);
+
+    if (obj.comune !== undefined) {
+        getComuneQ( obj.comune, function(error, response, body) {
+            if (error) {
+                console.log('error:', error);
+            } else {
+                let res = JSON.parse(body).results.bindings;
+                if (res.length > 0) obj.comune = res[0].wdId.value.replace("http://www.wikidata.org/entity/","");
+                    createWikidataStatements(wd, obj, cb) 
+                }
+            });
+        }
+    else 
+        createWikidataStatements(wd, obj, cb)
+
+}
+
+var createWikidataStatements = function (wd, obj, cb) {
     let endpointWikidata = {
         url: "https://query.wikidata.org/sparql?query=" + encodeURIComponent('DESCRIBE <' + wd + '>'),
         headers: {
@@ -158,33 +192,35 @@ var updateWikidataItem = function (wd, elem, cb) {
     request(endpointWikidata, function (error, response, body) {
         let wdObj = JSON.parse(body).results.bindings;
         let myClaims = {};
-       
+
         let propDict = {
-            //"P131": 'comune',
+            "P31": 'type',
+            "P131": 'comune',
             "P969": 'fullAddress',
             "P856": 'website',
             "P1329": 'telephone',
             "P968": 'email',
             "P2900": 'fax',
-            //"P625": 'coord',
+            "P625": 'coord',
             "P281": 'cap',
             "P528": 'id'
         };
- 
-        let countries = getPropValues(wdObj, 'P17') 
+
+        let countries = getPropValues(wdObj, 'P17')
         if (countries.indexOf('http://www.wikidata.org/entity/Q38') < 0)
                 myClaims['P17'] = { value: 'Q38', references: { P143: 'Q52897564' } }
-        
+
         let types = getPropValues(wdObj, 'P1435');
         if (types.indexOf('http://www.wikidata.org/entity/Q26971668') < 0)
                 myClaims['P1435'] = { value: 'Q26971668', references: { P143: 'Q52897564' } }
-        
+
         Object.keys(propDict).forEach(function(key) {
-            let newItem = shouldAddNewStatement(wdObj, obj, key, propDict[key]);
-            if (newItem) myClaims[key] = newItem;
+            if (obj[propDict[key]] !== undefined) {
+                let newItem = shouldAddNewStatement(wdObj, obj, key, propDict[key]);
+                if (newItem) myClaims[key] = newItem;
+            }
         });
 
-        console.log(wd.replace('http://www.wikidata.org/entity/', ''), JSON.stringify(myClaims,null,4))
         //if (false) {
         if (Object.keys(myClaims).length > 0) {
             console.log("Update Wikidata item " + wd);
@@ -233,7 +269,6 @@ var schiacciaElem = function (elem) {
         if (newelem.telephone.includes(" - ")) newelem.telephone = newelem.telephone.split(" - ")[0];
         if (newelem.telephone.includes('+ ')) newelem.telephone = newelem.telephone.replace("+ ", "+");
         if (!newelem.telephone.replace(/\s+/g, '').startsWith("+39")) {
-            console.log(newelem.telephone)
             newelem.telephone = "+39 " + newelem.telephone.replace(/\s+/g, '');
         }
         newelem.telephone = newelem.telephone.replace(/\s+$/g, '').replace("/", '');
@@ -288,9 +323,9 @@ var createItem = function (obj, created) {
     if (obj.telephone !== undefined && obj.telephone !== '') {
         myClaims["P1329"] = { value: obj.telephone, references: { P143: 'Q52897564' } } //telefono
     }
-    //if (obj.email !== undefined && obj.email !== '') {
-    //    myClaims["P968"] = { value: obj.email, references: { P143: 'Q52897564' } } //email
-    //}
+    if (obj.email !== undefined && obj.email !== '') {
+        myClaims["P968"] = { value: obj.email, references: { P143: 'Q52897564' } } //email
+    }
     if (obj.fax !== undefined && obj.fax !== '') {
         myClaims["P2900"] = { value: obj.fax, references: { P143: 'Q52897564' } } //fax
     }
