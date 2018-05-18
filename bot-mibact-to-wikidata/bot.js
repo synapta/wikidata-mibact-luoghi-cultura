@@ -89,6 +89,20 @@ var askWikidata = function(elem, cb) {
     });
 }
 
+var getComuneQ = function(comune, cb) {
+    let endpointWikidata = {
+        url: "https://query.wikidata.org/sparql?query=" + encodeURIComponent(queries.queryComuneWikidata(comune)),
+        headers: {
+          'Accept': 'application/json'
+        },
+        retryDelay: 5000
+    };
+    request(endpointWikidata, function (error, response, body) {
+        cb(error, response, body)
+    })
+}
+
+
 var createNewWikidataItem = function (elem, cb) {
     console.log("Creating new Wikidata item");
 
@@ -96,14 +110,7 @@ var createNewWikidataItem = function (elem, cb) {
 
     if (obj.comune !== undefined) {
         console.log("Converting comune into Q...");
-        let endpointWikidata = {
-            url: "https://query.wikidata.org/sparql?query=" + encodeURIComponent(queries.queryComuneWikidata(obj.comune)),
-            headers: {
-              'Accept': 'application/json'
-            },
-            retryDelay: 5000
-        };
-        request(endpointWikidata, function (error, response, body) {
+        getComuneQ(obj.comune, function(error, response, body) {
             if (error) {
                 console.log('error:', error);
             } else {
@@ -137,7 +144,7 @@ var shouldAddNewStatement = function (elem, obj, prop, valueName) {
     if (prop === 'P31') {
         testVar = 'http://www.wikidata.org/entity/' + obj[valueName];
     }
-    
+
     if (prop === 'P625') {
         testVar = "Point(" + obj[valueName].latitude.toString() + "," + obj[valueName].longitude.toString() + ")";
     }
@@ -157,6 +164,24 @@ var shouldAddNewStatement = function (elem, obj, prop, valueName) {
 var updateWikidataItem = function (wd, elem, cb) {
 
     let obj = schiacciaElem(elem);
+
+    if (obj.comune !== undefined) {
+        getComuneQ( obj.comune, function(error, response, body) {
+            if (error) {
+                console.log('error:', error);
+            } else {
+                let res = JSON.parse(body).results.bindings;
+                if (res.length > 0) obj.comune = res[0].wdId.value.replace("http://www.wikidata.org/entity/","");
+                    createWikidataStatements(wd, obj, cb) 
+                }
+            });
+        }
+    else 
+        createWikidataStatements(wd, obj, cb)
+
+}
+
+var createWikidataStatements = function (wd, obj, cb) {
     let endpointWikidata = {
         url: "https://query.wikidata.org/sparql?query=" + encodeURIComponent('DESCRIBE <' + wd + '>'),
         headers: {
@@ -167,10 +192,10 @@ var updateWikidataItem = function (wd, elem, cb) {
     request(endpointWikidata, function (error, response, body) {
         let wdObj = JSON.parse(body).results.bindings;
         let myClaims = {};
-       
+
         let propDict = {
             "P31": 'type',
-            //"P131": 'comune',
+            "P131": 'comune',
             "P969": 'fullAddress',
             "P856": 'website',
             "P1329": 'telephone',
@@ -180,15 +205,15 @@ var updateWikidataItem = function (wd, elem, cb) {
             "P281": 'cap',
             "P528": 'id'
         };
- 
-        let countries = getPropValues(wdObj, 'P17') 
+
+        let countries = getPropValues(wdObj, 'P17')
         if (countries.indexOf('http://www.wikidata.org/entity/Q38') < 0)
                 myClaims['P17'] = { value: 'Q38', references: { P143: 'Q52897564' } }
-        
+
         let types = getPropValues(wdObj, 'P1435');
         if (types.indexOf('http://www.wikidata.org/entity/Q26971668') < 0)
                 myClaims['P1435'] = { value: 'Q26971668', references: { P143: 'Q52897564' } }
-        
+
         Object.keys(propDict).forEach(function(key) {
             if (obj[propDict[key]] !== undefined) {
                 let newItem = shouldAddNewStatement(wdObj, obj, key, propDict[key]);
@@ -273,6 +298,7 @@ var schiacciaElem = function (elem) {
     }
     count++
     console.log('>>>>>>>> Counter: ', count)
+    console.log(newelem)
     return newelem;
 }
 
