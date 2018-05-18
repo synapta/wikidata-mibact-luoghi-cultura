@@ -1,5 +1,6 @@
 var credential = require('./credential.js');
 var queries = require('./queries.js');
+var datatypeMapping = require('./datatypeMapping.js');
 var request = require('requestretry');
 
 const config = {
@@ -115,8 +116,8 @@ var createNewWikidataItem = function (elem, cb) {
                 console.log('error:', error);
             } else {
                 let res = JSON.parse(body).results.bindings;
-                if (res.length > 0) obj.comune = res[0].wdId.value.replace("http://www.wikidata.org/entity/","");
-
+                if (res.length > 0) 
+                    obj.comune = res[0].wdId.value.replace("http://www.wikidata.org/entity/","");
                 createItem(obj, function () {
                     cb();
                 });
@@ -170,9 +171,11 @@ var updateWikidataItem = function (wd, elem, cb) {
                 console.log('error:', error);
             } else {
                 let res = JSON.parse(body).results.bindings;
-                console.log(res[0].wdId)
-                if (res.length > 0) obj.comune = res[0].wdId.value.replace("http://www.wikidata.org/entity/","");
-                    createWikidataStatements(wd, obj, cb) 
+                console.log(res)
+                obj.comune = undefined
+                if (res.length > 0) 
+                    obj.comune = res[0].wdId.value.replace("http://www.wikidata.org/entity/","");
+                createWikidataStatements(wd, obj, cb) 
                 }
             });
         }
@@ -206,6 +209,9 @@ var createWikidataStatements = function (wd, obj, cb) {
             "P528": 'id'
         };
 
+        if (obj.type === undefined ) 
+            propDict.P31 = 'typeInf'; 
+
         let countries = getPropValues(wdObj, 'P17')
         if (countries.indexOf('http://www.wikidata.org/entity/Q38') < 0)
                 myClaims['P17'] = { value: 'Q38', references: { P143: 'Q52897564' } }
@@ -220,6 +226,11 @@ var createWikidataStatements = function (wd, obj, cb) {
                 if (newItem) myClaims[key] = newItem;
             }
         });
+
+        if (myClaims.P31bis !== undefined) {
+            myClaims['P31'] = {value: myClaims.P31bis.value }
+            delete myClaims.P31bis 
+        }
 
         console.log(myClaims)
         //if (false) {
@@ -298,6 +309,12 @@ var schiacciaElem = function (elem) {
                 break;
         }
     }
+    if (newelem.type === undefined) {
+        elem.typeInf = datatypeMapping.mapTypeFromLabel(newelem.label)
+        if (elem.typeInf !== undefined)
+            newelem.typeInf = elem.typeInf;
+    }
+
     count++
     console.log('>>>>>>>> Counter: ', count)
     console.log(newelem)
@@ -311,7 +328,11 @@ var createItem = function (obj, created) {
         P1435: { value: 'Q26971668', references: { P143: 'Q52897564' } } //stato patrimonio
     };
     if (obj.type !== undefined && obj.type !== '') {
-        myClaims["P31"] = { value: obj.type, references: { P143: 'Q52897564' } } //comune
+        myClaims["P31"] = { value: obj.type, references: { P143: 'Q52897564' } } //tipo
+    } else {
+        if (obj.typeInf !== undefined && obj.typeInf !== '') {
+            myClaims["P31"] = { value: obj.typeInf }
+        }
     }
     if (obj.comune !== undefined && obj.comune.startsWith('Q')) {
         myClaims["P131"] = { value: obj.comune, references: { P143: 'Q52897564' } } //comune
