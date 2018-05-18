@@ -1,3 +1,5 @@
+# Conta il numero di utilizzi per le proprietà
+
 SELECT ?p (COUNT(DISTINCT ?s) as ?c)
 WHERE {
   ?s a <http://dati.beniculturali.it/cis/CulturalInstituteOrSite> .
