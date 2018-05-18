@@ -90,6 +90,7 @@ var askWikidata = function(elem, cb) {
 }
 
 var getComuneQ = function(comune, cb) {
+    console.log("Converting comune into Q...");
     let endpointWikidata = {
         url: "https://query.wikidata.org/sparql?query=" + encodeURIComponent(queries.queryComuneWikidata(comune)),
         headers: {
@@ -109,7 +110,6 @@ var createNewWikidataItem = function (elem, cb) {
     let obj = schiacciaElem(elem);
 
     if (obj.comune !== undefined) {
-        console.log("Converting comune into Q...");
         getComuneQ(obj.comune, function(error, response, body) {
             if (error) {
                 console.log('error:', error);
@@ -141,18 +141,18 @@ var getPropValues = function(elem, prop) {
 
 var shouldAddNewStatement = function (elem, obj, prop, valueName) {
     var testVar = obj[valueName]
-    if (prop === 'P31') {
+    if (prop === 'P31' || prop === 'P131') {
         testVar = 'http://www.wikidata.org/entity/' + obj[valueName];
     }
 
     if (prop === 'P625') {
-        testVar = "Point(" + obj[valueName].latitude.toString() + "," + obj[valueName].longitude.toString() + ")";
+        testVar = "Point(" + obj[valueName].longitude.toString() + " " + obj[valueName].latitude.toString() + ")";
     }
 
     let array = getPropValues(elem, prop);
 
-
     var statement = false
+    console.log(array, testVar)
     if (array.indexOf(testVar) < 0) {
         if (obj[valueName] !== undefined && obj[valueName] !== '')
             statement = { value: obj[valueName], references: { P143: 'Q52897564' } };
@@ -164,13 +164,13 @@ var shouldAddNewStatement = function (elem, obj, prop, valueName) {
 var updateWikidataItem = function (wd, elem, cb) {
 
     let obj = schiacciaElem(elem);
-
     if (obj.comune !== undefined) {
-        getComuneQ( obj.comune, function(error, response, body) {
+        getComuneQ(obj.comune, function(error, response, body) {
             if (error) {
                 console.log('error:', error);
             } else {
                 let res = JSON.parse(body).results.bindings;
+                console.log(res[0].wdId)
                 if (res.length > 0) obj.comune = res[0].wdId.value.replace("http://www.wikidata.org/entity/","");
                     createWikidataStatements(wd, obj, cb) 
                 }
@@ -221,6 +221,7 @@ var createWikidataStatements = function (wd, obj, cb) {
             }
         });
 
+        console.log(myClaims)
         //if (false) {
         if (Object.keys(myClaims).length > 0) {
             console.log("Update Wikidata item " + wd);
@@ -242,6 +243,7 @@ var createWikidataStatements = function (wd, obj, cb) {
                 process.exit(0);
             });
         } else {
+            console.log("No Update for: " + wd)
             cb();
         }
     });
