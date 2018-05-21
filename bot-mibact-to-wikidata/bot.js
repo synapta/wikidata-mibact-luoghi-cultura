@@ -3,6 +3,8 @@ var queries = require('./queries.js');
 var datatypeMapping = require('./datatypeMapping.js');
 var request = require('requestretry');
 
+var count = 0;
+
 const config = {
   // One authorization mean is required
 
@@ -36,6 +38,8 @@ request(endpointMibactStart, function (error, response, body) {
 });
 
 var callWikidata = function (arr, index) {
+    console.log('>>>>>>>> Counter: ', ++count);
+
     askWikidata(arr[index], function () {
         setTimeout(function() {
             callWikidata(arr, ++index);
@@ -43,7 +47,7 @@ var callWikidata = function (arr, index) {
     });
 }
 
-var count = 0;
+
 
 var askWikidata = function(elem, cb) {
     console.log("Asking Wikidata " + elem.label.value);
@@ -60,15 +64,16 @@ var askWikidata = function(elem, cb) {
             console.log('error:', error); // Print the error if one occurred
         } else {
             let arr = JSON.parse(body).results.bindings;
-            //console.log(arr);
 
             //Nothing found
             if (arr.length === 0) {
+                console.log("I choose to create new item!");
                 createNewWikidataItem(elem, function (){
                     cb();
                 });
             //Found exactly one
             } else if (arr.length === 1) {
+                console.log("I choose to update " + arr[0].item.value);
                 updateWikidataItem(arr[0].item.value, elem, function() {
                     cb();
                 })
@@ -76,11 +81,13 @@ var askWikidata = function(elem, cb) {
             } else if (arr.length > 1) {
                 //If one is predominant
                 if (arr[0].c.value > arr[1].c.value) {
+                    console.log("I choose to update " + arr[0].item.value);
                     updateWikidataItem(arr[0].item.value, elem, function() {
                         cb();
                     })
                 //If no consensus
                 } else {
+                    console.log("I choose to create new item!");
                     createNewWikidataItem(elem, function (){
                         cb();
                     });
@@ -91,7 +98,7 @@ var askWikidata = function(elem, cb) {
 }
 
 var getComuneQ = function(comune, cb) {
-    console.log("Converting comune into Q...");
+    console.log("Converting comune " + comune + " into Q...");
     let endpointWikidata = {
         url: "https://query.wikidata.org/sparql?query=" + encodeURIComponent(queries.queryComuneWikidata(comune)),
         headers: {
@@ -116,8 +123,13 @@ var createNewWikidataItem = function (elem, cb) {
                 console.log('error:', error);
             } else {
                 let res = JSON.parse(body).results.bindings;
-                if (res.length > 0) 
+                if (res.length > 0) {
+                    console.log("Found a matching comune");
                     obj.comune = res[0].wdId.value.replace("http://www.wikidata.org/entity/","");
+                } else {
+                    console.log("Didn't found any comune");
+                }
+
                 createItem(obj, function () {
                     cb();
                 });
@@ -141,7 +153,7 @@ var getPropValues = function(elem, prop) {
 }
 
 var shouldAddNewStatement = function (elem, obj, prop, valueName) {
-    var testVar = obj[valueName]
+    var testVar = obj[valueName];
     if (prop === 'P31' || prop === 'P131') {
         testVar = 'http://www.wikidata.org/entity/' + obj[valueName];
     }
@@ -152,18 +164,16 @@ var shouldAddNewStatement = function (elem, obj, prop, valueName) {
 
     let array = getPropValues(elem, prop);
 
-    var statement = false
-    console.log(array, testVar)
+    var statement = false;
+    //console.log(array, testVar)
     if (array.indexOf(testVar) < 0) {
         if (obj[valueName] !== undefined && obj[valueName] !== '')
             statement = { value: obj[valueName], references: { P143: 'Q52897564' } };
     }
-    return statement
-
+    return statement;
 }
 
 var updateWikidataItem = function (wd, elem, cb) {
-
     let obj = schiacciaElem(elem);
     if (obj.comune !== undefined) {
         getComuneQ(obj.comune, function(error, response, body) {
@@ -171,17 +181,18 @@ var updateWikidataItem = function (wd, elem, cb) {
                 console.log('error:', error);
             } else {
                 let res = JSON.parse(body).results.bindings;
-                console.log(res)
-                obj.comune = undefined
-                if (res.length > 0) 
+                if (res.length > 0) {
+                    console.log("Found a matching comune");
                     obj.comune = res[0].wdId.value.replace("http://www.wikidata.org/entity/","");
-                createWikidataStatements(wd, obj, cb) 
+                } else {
+                    console.log("Didn't found any comune");
                 }
-            });
-        }
-    else 
-        createWikidataStatements(wd, obj, cb)
-
+                createWikidataStatements(wd, obj, cb);
+            }
+        });
+    } else {
+        createWikidataStatements(wd, obj, cb);
+    }
 }
 
 var createWikidataStatements = function (wd, obj, cb) {
@@ -209,8 +220,8 @@ var createWikidataStatements = function (wd, obj, cb) {
             "P528": 'id'
         };
 
-        if (obj.type === undefined ) 
-            propDict.P31 = 'typeInf'; 
+        if (obj.type === undefined )
+            propDict.P31 = 'typeInf';
 
         let countries = getPropValues(wdObj, 'P17')
         if (countries.indexOf('http://www.wikidata.org/entity/Q38') < 0)
@@ -223,19 +234,22 @@ var createWikidataStatements = function (wd, obj, cb) {
         Object.keys(propDict).forEach(function(key) {
             if (obj[propDict[key]] !== undefined) {
                 let newItem = shouldAddNewStatement(wdObj, obj, key, propDict[key]);
-                if (newItem) myClaims[key] = newItem;
+                if (key === "P528") {
+                    myClaims["P528"] = { value: obj.id, qualifiers: { P972: 'Q52896862', P2699 : obj.uri } ,
+                                         references: { P143: 'Q52897564' } }
+                } else if (newItem) {
+                    myClaims[key] = newItem;
+                }
             }
         });
 
         if (myClaims.P31bis !== undefined) {
             myClaims['P31'] = {value: myClaims.P31bis.value }
-            delete myClaims.P31bis 
+            delete myClaims.P31bis
         }
 
-        console.log(myClaims)
-        //if (false) {
         if (Object.keys(myClaims).length > 0) {
-            console.log("Update Wikidata item " + wd);
+            console.log("Updating Wikidata item " + wd + "...");
             wdEdit.entity.edit({
                 id: wd.replace('http://www.wikidata.org/entity/', ''),
                 claims: myClaims
@@ -254,7 +268,7 @@ var createWikidataStatements = function (wd, obj, cb) {
                 process.exit(0);
             });
         } else {
-            console.log("No Update for: " + wd)
+            console.log("No Update for: " + wd + ". Skipping!");
             cb();
         }
     });
@@ -315,14 +329,11 @@ var schiacciaElem = function (elem) {
             newelem.typeInf = elem.typeInf;
     }
 
-    count++
-    console.log('>>>>>>>> Counter: ', count)
     console.log(newelem)
     return newelem;
 }
 
 var createItem = function (obj, created) {
-    console.log("Publishing to Wikidata...")
     let myClaims = {
         P17: { value: 'Q38', references: { P143: 'Q52897564' } }, //paese
         P1435: { value: 'Q26971668', references: { P143: 'Q52897564' } } //stato patrimonio
@@ -363,6 +374,13 @@ var createItem = function (obj, created) {
                                references: { P143: 'Q52897564' } }
     }
 
+    if (obj.id === undefined) {
+        console.log("Skipping, poor element!");
+        created();
+        return;
+    }
+
+    console.log("Creating...")
     wdEdit.entity.create({
         labels: { it: obj.label},
         claims: myClaims
