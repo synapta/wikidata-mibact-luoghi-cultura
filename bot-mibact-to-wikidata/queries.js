@@ -118,11 +118,14 @@ exports.queryWikidata = function (item) {
 }
 
 exports.queryComuneWikidata = function (comune) {
+    comune = comune.toUpperCase();
     return `
         SELECT ?wdId
         WHERE {
-            ?wdId rdfs:label "${comune}"@it;
+            ?wdId rdfs:label ?label;
                   wdt:P31/wdt:P279* wd:Q747074
+
+            FILTER (UCASE(?label) = "${comune}"@it)
         }
         ORDER BY ?wdId
         LIMIT 1
