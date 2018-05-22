@@ -376,7 +376,7 @@ var createItem = function (obj, created) {
     }
     myClaims["P973"] = { value: obj.uri, references: { P143: 'Q52897564' } } //descritto nella fonte
 
-    if (obj.id === undefined) {
+    if (obj.uri === undefined) {
         console.log("Skipping, poor element!");
         created();
         return;

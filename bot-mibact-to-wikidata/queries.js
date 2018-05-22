@@ -94,6 +94,7 @@ exports.queryWikidata = function (item) {
     if (item.website !== undefined) conds.push(`{ ?item wdt:P856 <${item.website.value.replace(/\s/g, '').replace(/\/$/,'')}/> }`); //con slash finale
     if (item.comune !== undefined) conds.push(`{ ?item wdt:P131/rdfs:label "${item.comune.value}"@it }`);
     if (item.id !== undefined) conds.push(`{ ?item wdt:P528 "${item.id.value}" }`);
+    if (item.uri !== undefined) conds.push(`{ ?item wdt:P973 <${item.s.value}> }`);
     /*if (item.long !== undefined && item.lat !== undefined  && item.long.value !== "" && item.lat.value !== "") conds.push(`
       {
         SELECT ?item WHERE {

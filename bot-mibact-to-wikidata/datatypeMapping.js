@@ -17,11 +17,12 @@ var instanceOf = {
 exports.mapTypeFromLabel = function (label) {
     let l = label.toUpperCase();
 
-    Object.keys(instanceOf).forEach(function(key, index) {
+    for (let i = 0; i < Object.keys(instanceOf).length; i++) {
+        let key = Object.keys(instanceOf)[i];
         if (l.startsWith(key)) {
             return instanceOf[key];
         }
-    });
+    }
 
     return undefined;
 }
