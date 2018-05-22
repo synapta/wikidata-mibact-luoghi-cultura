@@ -217,7 +217,8 @@ var createWikidataStatements = function (wd, obj, cb) {
             "P2900": 'fax',
             "P625": 'coord',
             "P281": 'cap',
-            "P528": 'id'
+            "P528": 'id',
+            "P973": 'uri'
         };
 
         if (obj.type === undefined )
@@ -371,8 +372,9 @@ var createItem = function (obj, created) {
     }
     if (obj.id !== undefined && obj.id !== '') {
         myClaims["P528"] = { value: obj.id, qualifiers: { P972: 'Q52896862', P2699 : obj.uri } ,
-                               references: { P143: 'Q52897564' } }
+                               references: { P143: 'Q52897564' } } //catalogo
     }
+    myClaims["P973"] = { value: obj.uri, references: { P143: 'Q52897564' } } //descritto nella fonte
 
     if (obj.id === undefined) {
         console.log("Skipping, poor element!");
