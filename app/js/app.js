@@ -57,7 +57,7 @@ var prettify_commons = function (record, fieldName) {
           throw "Value undefined";
       }
       record[customHeadsName][fieldName] = {};
-      record[customHeadsName][fieldName]['html'] = '<a target="_blank" href="https://commons.wikimedia.org/w/index.php?title=Category:{{commons}}">Monumento</a>'
+      record[customHeadsName][fieldName]['html'] = '<a target="_blank" href="https://commons.wikimedia.org/w/index.php?title=Category:{{commons}}">Categoria</a>'
       .replace(/{{commons}}/g, record[fieldName].value);
   }
   catch (e) {

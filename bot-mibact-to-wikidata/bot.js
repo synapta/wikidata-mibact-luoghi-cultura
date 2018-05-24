@@ -306,6 +306,8 @@ var schiacciaElem = function (elem) {
         if (newelem.telephone.includes(",")) newelem.telephone = newelem.telephone.split(",")[0];
         if (newelem.telephone.includes(" - ")) newelem.telephone = newelem.telephone.split(" - ")[0];
         if (newelem.telephone.includes('+ ')) newelem.telephone = newelem.telephone.replace("+ ", "+");
+
+        newelem.telephone = newelem.telephone.replace(/[^0-9.]/g, "");
         if (!newelem.telephone.replace(/\s+/g, '').startsWith("+39")) {
             newelem.telephone = "+39 " + newelem.telephone.replace(/\s+/g, '');
         }
