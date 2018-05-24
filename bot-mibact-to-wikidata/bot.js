@@ -67,13 +67,13 @@ var askWikidata = function(elem, cb) {
 
             //Nothing found
             if (arr.length === 0) {
-                console.log("I choose to create new item!");
+                console.log("Nothing found: I choose to create new item!");
                 createNewWikidataItem(elem, function (){
                     cb();
                 });
             //Found exactly one
             } else if (arr.length === 1) {
-                console.log("I choose to update " + arr[0].item.value);
+                console.log("Only one item: I choose to update " + arr[0].item.value);
                 updateWikidataItem(arr[0].item.value, elem, function() {
                     cb();
                 })
@@ -81,13 +81,13 @@ var askWikidata = function(elem, cb) {
             } else if (arr.length > 1) {
                 //If one is predominant
                 if (arr[0].c.value > arr[1].c.value) {
-                    console.log("I choose to update " + arr[0].item.value);
+                    console.log("One item is predominant: I choose to update " + arr[0].item.value);
                     updateWikidataItem(arr[0].item.value, elem, function() {
                         cb();
                     })
                 //If no consensus
                 } else {
-                    console.log("I choose to create new item!");
+                    console.log("No consensus: I choose to create new item!");
                     createNewWikidataItem(elem, function (){
                         cb();
                     });
@@ -187,15 +187,15 @@ var updateWikidataItem = function (wd, elem, cb) {
                 } else {
                     console.log("Didn't found any comune");
                 }
-                createWikidataStatements(wd, obj, cb);
+                createWikidataStatements(wd, obj, elem, cb);
             }
         });
     } else {
-        createWikidataStatements(wd, obj, cb);
+        createWikidataStatements(wd, obj, elem, cb);
     }
 }
 
-var createWikidataStatements = function (wd, obj, cb) {
+var createWikidataStatements = function (wd, obj, elem, cb) {
     let endpointWikidata = {
         url: "https://query.wikidata.org/sparql?query=" + encodeURIComponent('DESCRIBE <' + wd + '>'),
         headers: {
@@ -206,6 +206,15 @@ var createWikidataStatements = function (wd, obj, cb) {
     request(endpointWikidata, function (error, response, body) {
         let wdObj = JSON.parse(body).results.bindings;
         let myClaims = {};
+
+        //Se i comuni sono diversi creo nuovo item
+        if (getPropValues(wdObj, 'P131')[0].replace("http://www.wikidata.org/entity/","") !== obj.comune || getPropValues(wdObj, 'P131') === undefined) {
+            console.log("Countermand! Different P131, I create new item");
+            createNewWikidataItem(elem, function (){
+                cb();
+            });
+            return;
+        }
 
         let propDict = {
             "P31": 'type',
@@ -294,6 +303,7 @@ var schiacciaElem = function (elem) {
     if (elem.telephone !== undefined) {
         newelem.telephone = elem.telephone.value.replace(/\./g, '').replace(/Tel/ig, '');
         if (newelem.telephone.includes(";")) newelem.telephone = newelem.telephone.split(";")[0];
+        if (newelem.telephone.includes(",")) newelem.telephone = newelem.telephone.split(",")[0];
         if (newelem.telephone.includes(" - ")) newelem.telephone = newelem.telephone.split(" - ")[0];
         if (newelem.telephone.includes('+ ')) newelem.telephone = newelem.telephone.replace("+ ", "+");
         if (!newelem.telephone.replace(/\s+/g, '').startsWith("+39")) {

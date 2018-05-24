@@ -69,7 +69,7 @@ exports.queryWikidata = function (item) {
               }
             }
           }
-          {
+          OPTIONAL {
     `;
     let end = `
         }}
