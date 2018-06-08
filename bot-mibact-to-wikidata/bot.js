@@ -1,7 +1,7 @@
 var credential = require('./credential.js');
 var queries = require('./queries.js');
 var datatypeMapping = require('./datatypeMapping.js');
-var request = require('requestretry');
+var request = require('request');
 
 var count = 0;
 
@@ -11,6 +11,8 @@ const config = {
   // either a username and password
   username: credential.user,
   password: credential.password,
+
+  summary: 'Import data from MiBACT endpoint for WLM #WLM-MIBACT-2018',
 
   // Optional
   verbose: false, // Default: false
@@ -24,8 +26,7 @@ let endpointMibactStart = {
     url: "http://dati.beniculturali.it/sparql?query=" + encodeURIComponent(queries.queryMibact),
     headers: {
       'Accept': 'application/json'
-    },
-    retryDelay: 3000
+    }
 };
 console.log("Asking Mibact...");
 request(endpointMibactStart, function (error, response, body) {
@@ -40,7 +41,7 @@ request(endpointMibactStart, function (error, response, body) {
 var callWikidata = function (arr, index) {
     console.log('>>>>>>>> Counter: ', ++count);
 
-    askWikidata(arr[index], function () {
+    askWikidata(arr[index], arr, index, function () {
         setTimeout(function() {
             callWikidata(arr, ++index);
         }, 10000);
@@ -49,7 +50,7 @@ var callWikidata = function (arr, index) {
 
 
 
-var askWikidata = function(elem, cb) {
+var askWikidata = function(elem, arr, index, cb) {
     console.log("Asking Wikidata " + elem.label.value);
 
     let endpointWikidata = {
@@ -57,11 +58,13 @@ var askWikidata = function(elem, cb) {
         headers: {
           'Accept': 'application/json'
         },
-        retryDelay: 5000
+        timeout: 10000
     };
     request(endpointWikidata, function (error, response, body) {
         if (error) {
             console.log('error:', error); // Print the error if one occurred
+            console.log("Once again!");
+            callWikidata(arr, index);
         } else {
             let arr = JSON.parse(body).results.bindings;
 
@@ -104,7 +107,7 @@ var getComuneQ = function(comune, cb) {
         headers: {
           'Accept': 'application/json'
         },
-        retryDelay: 5000
+        timeout: 10000
     };
     request(endpointWikidata, function (error, response, body) {
         cb(error, response, body)
@@ -121,6 +124,10 @@ var createNewWikidataItem = function (elem, cb) {
         getComuneQ(obj.comune, function(error, response, body) {
             if (error) {
                 console.log('error:', error);
+                console.log("Once again!");
+                createNewWikidataItem(elem, function (){
+                    cb();
+                });
             } else {
                 let res = JSON.parse(body).results.bindings;
                 if (res.length > 0) {
@@ -152,6 +159,7 @@ var getPropValues = function(elem, prop) {
     return array;
 }
 
+//Controllo se è un valore da aggiungere oppure no
 var shouldAddNewStatement = function (elem, obj, prop, valueName) {
     var testVar = obj[valueName];
     if (prop === 'P31' || prop === 'P131') {
@@ -165,7 +173,9 @@ var shouldAddNewStatement = function (elem, obj, prop, valueName) {
     let array = getPropValues(elem, prop);
 
     var statement = false;
-    //console.log(array, testVar)
+
+    //Se non c'è ed è buona creo lo statement
+    //console.log(array, testVar, array.indexOf(testVar));
     if (array.indexOf(testVar) < 0) {
         if (obj[valueName] !== undefined && obj[valueName] !== '')
             statement = { value: obj[valueName], references: { P143: 'Q52897564' } };
@@ -179,6 +189,10 @@ var updateWikidataItem = function (wd, elem, cb) {
         getComuneQ(obj.comune, function(error, response, body) {
             if (error) {
                 console.log('error:', error);
+                console.log("Once again!");
+                updateWikidataItem(wd, elem, function() {
+                    cb();
+                })
             } else {
                 let res = JSON.parse(body).results.bindings;
                 if (res.length > 0) {
@@ -201,15 +215,25 @@ var createWikidataStatements = function (wd, obj, elem, cb) {
         headers: {
           'Accept': 'application/json'
         },
-        retryDelay: 5000
+        timeout: 10000
     };
+    //Chiedo dati per il Q che voglio aggiornare
     request(endpointWikidata, function (error, response, body) {
         let wdObj = JSON.parse(body).results.bindings;
         let myClaims = {};
 
         //Se i comuni sono diversi creo nuovo item
-        if (getPropValues(wdObj, 'P131')[0].replace("http://www.wikidata.org/entity/","") !== obj.comune || getPropValues(wdObj, 'P131') === undefined) {
+        if (getPropValues(wdObj, 'P131').length === 0 || getPropValues(wdObj, 'P131')[0].replace("http://www.wikidata.org/entity/","") !== obj.comune) {
             console.log("Countermand! Different P131, I create new item");
+            createNewWikidataItem(elem, function (){
+                cb();
+            });
+            return;
+        }
+
+        //Se gli id mibact sono diversi creo nuovo item
+        if (getPropValues(wdObj, 'P528').length > 0 && getPropValues(wdObj, 'P528')[0] !== obj.id) {
+            console.log("Countermand! Different P528, I create new item");
             createNewWikidataItem(elem, function (){
                 cb();
             });
@@ -244,7 +268,7 @@ var createWikidataStatements = function (wd, obj, elem, cb) {
         Object.keys(propDict).forEach(function(key) {
             if (obj[propDict[key]] !== undefined) {
                 let newItem = shouldAddNewStatement(wdObj, obj, key, propDict[key]);
-                if (key === "P528") {
+                if (key === "P528" && newItem !== false) {
                     myClaims["P528"] = { value: obj.id, qualifiers: { P972: 'Q52896862', P2699 : obj.uri } ,
                                          references: { P143: 'Q52897564' } }
                 } else if (newItem) {
@@ -298,7 +322,7 @@ var schiacciaElem = function (elem) {
             globe: 'http://www.wikidata.org/entity/Q2'
         };
     if (elem.comune !== undefined) newelem.comune = elem.comune.value;
-    if (elem.fullAddress !== undefined) newelem.fullAddress = elem.fullAddress.value;
+    if (elem.fullAddress !== undefined) newelem.fullAddress = elem.fullAddress.value.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
     if (elem.website !== undefined) newelem.website = elem.website.value.replace(/\s/g, '');
     if (elem.telephone !== undefined) {
         newelem.telephone = elem.telephone.value.replace(/\./g, '').replace(/Tel/ig, '');
@@ -389,6 +413,12 @@ var createItem = function (obj, created) {
     myClaims["P973"] = { value: obj.uri, references: { P143: 'Q52897564' } } //descritto nella fonte
 
     if (obj.uri === undefined) {
+        console.log("Skipping, poor element!");
+        created();
+        return;
+    }
+
+    if (obj.label === '') {
         console.log("Skipping, poor element!");
         created();
         return;
