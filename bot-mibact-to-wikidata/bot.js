@@ -278,8 +278,10 @@ var createWikidataStatements = function (wd, obj, elem, cb) {
         });
 
         if (myClaims.P31bis !== undefined) {
-            myClaims['P31'] = {value: myClaims.P31bis.value }
+            myClaims['P31'] = { value: myClaims.P31bis.value }
             delete myClaims.P31bis
+        } else {
+            myClaims['P31'] = { value: "Q684740" } //bene immobile
         }
 
         if (Object.keys(myClaims).length > 0) {
@@ -380,6 +382,8 @@ var createItem = function (obj, created) {
     } else {
         if (obj.typeInf !== undefined && obj.typeInf !== '') {
             myClaims["P31"] = { value: obj.typeInf }
+        } else {
+            myClaims["P31"] = { value: "Q684740" }
         }
     }
     if (obj.comune !== undefined && obj.comune.startsWith('Q')) {
