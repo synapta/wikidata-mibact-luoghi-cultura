@@ -64,6 +64,7 @@ var askWikidata = function(elem, arr, index, cb) {
         if (error) {
             console.log('error:', error); // Print the error if one occurred
             console.log("Once again!");
+            count--;
             callWikidata(arr, index);
         } else {
             let arr = JSON.parse(body).results.bindings;
@@ -312,7 +313,7 @@ var createWikidataStatements = function (wd, obj, elem, cb) {
 
 var schiacciaElem = function (elem) {
     let newelem = {};
-    newelem.label = elem.label.value.replace(/\\"/, '"');
+    newelem.label = elem.label.value.replace(/\\"/g, '"');
     if (elem.id !== undefined) newelem.id = elem.id.value;
     if (elem.s !== undefined) newelem.uri = elem.s.value;
     if (elem.lat !== undefined && elem.long !== undefined && !isNaN(parseFloat(elem.lat.value)) && !isNaN(parseFloat(elem.long.value)) )
