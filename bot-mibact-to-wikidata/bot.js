@@ -67,7 +67,15 @@ var askWikidata = function(elem, arr, index, cb) {
             count--;
             callWikidata(arr, index);
         } else {
-            let arr = JSON.parse(body).results.bindings;
+            let arr = [];
+
+            try {
+                arr = JSON.parse(body).results.bindings;
+            } catch (e) {
+                console.log("Error in query!!! Skip");
+                cb();
+                return;
+            }
 
             //Nothing found
             if (arr.length === 0) {
@@ -136,6 +144,7 @@ var createNewWikidataItem = function (elem, cb) {
                     obj.comune = res[0].wdId.value.replace("http://www.wikidata.org/entity/","");
                 } else {
                     console.log("Didn't found any comune");
+                    delete obj.comune;
                 }
 
                 createItem(obj, function () {
@@ -345,7 +354,11 @@ var schiacciaElem = function (elem) {
         if (!newelem.fax.startsWith("+39")) newelem.fax = "+39 " + newelem.fax.replace(/\s+/g, '');
         newelem.fax = newelem.fax.replace(/\s+$/g, '');
     }
-    if (elem.email !== undefined) newelem.email = elem.email.value.replace(/\s+$/g, '');
+    if (elem.email !== undefined) {
+        newelem.email = elem.email.value;
+        if (newelem.email.includes(";")) newelem.email = newelem.email.split(";")[0];
+        newelem.email = newelem.email.replace(/\s+$/g, '');
+    }
     if (elem.cap !== undefined) newelem.cap = elem.cap.value;
     if (elem.disciplina !== undefined) {
         switch (elem.disciplina.value) {
@@ -443,8 +456,9 @@ var createItem = function (obj, created) {
         }
     }).catch(err => {
         console.log("Something wrong!");
+        console.log(err);
         console.log(err.body.error.messages);
-        console.log(myClaims)
+        console.log(myClaims);
         process.exit(0);
     });
 }
