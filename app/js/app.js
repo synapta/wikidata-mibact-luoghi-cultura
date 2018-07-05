@@ -5,7 +5,7 @@ var emptyValue = '<span class="none">&mdash;</span>';
 var customHeadsName = 'customFields';
 // Elencare qui i campi esistenti che necessitano di personalizzazioni
 // da sdoppiare in el[CustomHeadsName]
-var customHeads = ['coord', 'commons', 'idWDLabel', 'idCustodeLabel', 'immagine'];
+var customHeads = ['coord', 'commons', 'idWDLabel', 'idCustodeLabel', 'immagine', 'email', 'sitoweb'];
 
 var prettify = function (record, fieldName) {
     /**
@@ -51,6 +51,42 @@ var prettify_coord = function (record, fieldName) {
 };
 
 
+var prettify_sitoweb = function (record, fieldName) {
+  try {
+      if (typeof record[fieldName] === 'undefined' || record[fieldName].value === emptyValue) {
+          throw "Value undefined";
+      }
+      record[customHeadsName][fieldName] = {};
+      record[customHeadsName][fieldName]['html'] = '<a target="_blank" href="{{sitoweb}}">URL</a>'
+      .replace(/{{sitoweb}}/g, record[fieldName].value);
+  }
+  catch (e) {
+      // Fake element
+      record[customHeadsName][fieldName] = {
+          'html': emptyValue
+      };
+  }
+};
+
+
+var prettify_email = function (record, fieldName) {
+  try {
+      if (typeof record[fieldName] === 'undefined' || record[fieldName].value === emptyValue) {
+          throw "Value undefined";
+      }
+      record[customHeadsName][fieldName] = {};
+      record[customHeadsName][fieldName]['html'] = '<a target="_blank" href="{{email}}">Email</a>'
+      .replace(/{{email}}/g, record[fieldName].value);
+  }
+  catch (e) {
+      // Fake element
+      record[customHeadsName][fieldName] = {
+          'html': emptyValue
+      };
+  }
+};
+
+
 var prettify_commons = function (record, fieldName) {
   try {
       if (typeof record[fieldName] === 'undefined' || record[fieldName].value === emptyValue) {
@@ -75,7 +111,7 @@ var prettify_immagine = function (record, fieldName) {
           throw "Value undefined";
       }
       record[customHeadsName][fieldName] = {};
-      record[customHeadsName][fieldName]['html'] = '<a target="_blank" href="{{immagine}}">Immagine</a>'
+      record[customHeadsName][fieldName]['html'] = '<a target="_blank" href="{{immagine}}">Img</a>'
       .replace(/{{immagine}}/g, record[fieldName].value);
   }
   catch (e) {
@@ -267,6 +303,9 @@ $(document).ready( function () {
                 {data: 'customFields.comuneLabel.html'},  // link al comune
                 {data: 'indirizzo.value'},  // Via alla Fortezza
                 {data: 'customFields.coord.html'},  // Point(9.97152778 44.11510833) Long / Lat
+                {data: 'customFields.email.html'},
+                {data: 'telefono.value'},
+                {data: 'customFields.sitoweb.html'},
                 {data: 'customFields.immagine.html'},
                 {data: 'customFields.commons.html'} // https://commons.wikimedia.org/w/index.php?title=Category:Santa_Maria_Maggiore_%28Avigliana%29
             ]

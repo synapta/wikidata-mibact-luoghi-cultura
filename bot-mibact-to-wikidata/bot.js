@@ -370,8 +370,9 @@ var schiacciaElem = function (elem) {
         if (newelem.email.includes(";")) newelem.email = newelem.email.split(";")[0];
         if (newelem.email.includes(" ")) newelem.email = newelem.email.split(" ")[0];
         newelem.email = newelem.email.replace(/\s+$/g, '');
+        if (newelem.email === "mailto:") delete newelem.email;
     }
-    if (elem.cap !== undefined) newelem.cap = elem.cap.value;
+    if (elem.cap !== undefined) newelem.cap = elem.cap.value.replace(/\s/g, '');
     if (elem.disciplina !== undefined) {
         switch (elem.disciplina.value) {
             case 'http://dati.beniculturali.it/iccd/cf/resource/SubjectDiscipline/chiesa':
