@@ -24,6 +24,7 @@
     "apicache": "^1.2.1",
     "compression": "^1.7.2",
     "express": "^4.16.3",
+    "libphonenumber-js": "latest",
     "morgan": "^1.9.0",
     "request": "^2.85.0",
     "requestretry": "latest",

@@ -1,20 +1,27 @@
 var express = require('express');
 var request = require('request');
+
 // Interrogazioni SPARQL effettuate lato server
 const WIKIDATABASEQUERYURL =  "https://query.wikidata.org/sparql?query=";
 // Elenca i comuni da visualizzare nell'autocomplete
-const QUERY_SPARQL_COMUNI_AUTOCOMPLETE = `SELECT DISTINCT ?comune ?comuneLabel
-WHERE {
-?idWD wdt:P131 ?comune . ?comune wdt:P17 wd:Q38 .
-{ ?idWD wdt:P2186 ?idWLM . } UNION
-{ ?idWD wdt:P1435 wd:Q26971668 . }
+const QUERY_SPARQL_COMUNI_AUTOCOMPLETE = `
+    SELECT DISTINCT ?comune ?comuneLabel
+    WHERE {
+        ?idWD wdt:P131 ?comune . ?comune wdt:P17 wd:Q38 .
 
-SERVICE wikibase:label { bd:serviceParam wikibase:language "it". }
-}
-ORDER BY ASC (?comuneLabel)`;
+        { ?idWD wdt:P2186 ?idWLM . }
+        UNION
+        { ?idWD wdt:P1435 wd:Q26971668 . }
+
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "it". }
+    }
+    ORDER BY ASC (?comuneLabel)
+`;
 const QUERY_SPARQL_COMUNI_AUTOCOMPLETE_URL = WIKIDATABASEQUERYURL + encodeURIComponent(QUERY_SPARQL_COMUNI_AUTOCOMPLETE);
 // in millisecondi o in formato umanamente leggibile. Max: 2147483647ms (32bit)
 const JSON_SERVER_CACHE_TIME = '7 days';
+
+
 module.exports = function(app, apicache, passport) {
     // file statici e index.html in app/
     app.use('/', express.static('./app'));

@@ -2,6 +2,7 @@ var credential = require('./credential.js');
 var queries = require('./queries.js');
 var datatypeMapping = require('./datatypeMapping.js');
 var request = require('request');
+var libphonenumber = require('libphonenumber-js')
 
 var count = 0;
 
@@ -225,11 +226,19 @@ var createWikidataStatements = function (wd, obj, elem, cb) {
         headers: {
           'Accept': 'application/json'
         },
-        timeout: 10000
+        timeout: 5000
     };
     //Chiedo dati per il Q che voglio aggiornare
     request(endpointWikidata, function (error, response, body) {
-        let wdObj = JSON.parse(body).results.bindings;
+        let wdObj;
+
+        try {
+            wdObj = JSON.parse(body).results.bindings;
+        } catch (e) {
+            console.log("Error in query!!! Again");
+            createWikidataStatements(wd, obj, elem, cb);
+            return;
+        }
         let myClaims = {};
 
         //Se i comuni sono diversi creo nuovo item
@@ -343,20 +352,23 @@ var schiacciaElem = function (elem) {
         if (newelem.telephone.includes(" - ")) newelem.telephone = newelem.telephone.split(" - ")[0];
         if (newelem.telephone.includes('+ ')) newelem.telephone = newelem.telephone.replace("+ ", "+");
 
-        newelem.telephone = newelem.telephone.replace(/[^0-9.]/g, "");
-        if (!newelem.telephone.replace(/\s+/g, '').startsWith("+39")) {
-            newelem.telephone = "+39 " + newelem.telephone.replace(/\s+/g, '');
-        }
+        if (newelem.telephone.startsWith("+39")) newelem.telephone = newelem.telephone.replace("+39", '');
         newelem.telephone = newelem.telephone.replace(/\s+$/g, '').replace("/", '');
+        newelem.telephone = libphonenumber.formatNumber({ country: 'IT', phone: newelem.telephone }, 'International');
+        newelem.telephone = newelem.telephone.replace("tel:","");
     }
     if (elem.fax !== undefined) {
         newelem.fax = elem.fax.value.replace(/\./g, '').replace(/Tel/ig, '');
-        if (!newelem.fax.startsWith("+39")) newelem.fax = "+39 " + newelem.fax.replace(/\s+/g, '');
+        if (newelem.fax.startsWith("+39")) newelem.fax = newelem.fax.replace("+39", '');
         newelem.fax = newelem.fax.replace(/\s+$/g, '');
+        newelem.fax = libphonenumber.formatNumber({ country: 'IT', phone: newelem.fax }, 'International');
+        newelem.fax = newelem.fax.replace("tel:","");
     }
     if (elem.email !== undefined) {
         newelem.email = elem.email.value;
+        if (newelem.email.startsWith(" ")) newelem.email = newelem.email.replace(/^\s+/, '');
         if (newelem.email.includes(";")) newelem.email = newelem.email.split(";")[0];
+        if (newelem.email.includes(" ")) newelem.email = newelem.email.split(" ")[0];
         newelem.email = newelem.email.replace(/\s+$/g, '');
     }
     if (elem.cap !== undefined) newelem.cap = elem.cap.value;
@@ -452,13 +464,13 @@ var createItem = function (obj, created) {
             created();
         } else {
             console.log(re);
-            process.exit(0);
+            created();
         }
     }).catch(err => {
         console.log("Something wrong!");
         console.log(err);
         console.log(err.body.error.messages);
         console.log(myClaims);
-        process.exit(0);
+        created();
     });
 }
