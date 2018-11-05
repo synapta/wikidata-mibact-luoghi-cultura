@@ -337,13 +337,13 @@ $(document).ready( function () {
         $('.search-comuni .typeahead').typeahead({
           'hint': true,
           'highlight': true,
-          'minLength': 1
+          'minLength': 3
         },
         {
           'name': 'comuni',
           'displayKey': 'label',  // quale campo compare nella tendina di selez?
           'source': comuniAutocomplete,
-          'limit': 10
+          'limit': 1000
         });
     };
 
