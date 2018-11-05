@@ -82,7 +82,7 @@
 .tt-menu::after {
     padding: 0 0.6rem;
     background-color: #006699;
-    content: "Primi 10 risultati";
+    content: "\a0";
     color: whitesmoke;
     font-size: smaller;
     display: block;
