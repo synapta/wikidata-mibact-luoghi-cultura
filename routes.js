@@ -33,7 +33,8 @@ module.exports = function(app, apicache, passport) {
             let options = {
                 url: QUERY_SPARQL_COMUNI_AUTOCOMPLETE_URL,
                 headers: {
-                    'Accept': 'application/json'
+                    'Accept': 'application/json',
+                    'User-agent': 'wikidata-mibact-luoghi-cultura'
                 }
             };
 
