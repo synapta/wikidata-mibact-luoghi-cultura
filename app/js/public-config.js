@@ -2,35 +2,39 @@
 const WIKIDATABASEQUERYURL =  "https://query.wikidata.org/sparql?query=";
 // Elenca i comuni da visualizzare nell'autocomplete
 const QUERY_SPARQL_MONUMENTI_PATTERN = `
-    SELECT ?idWD ?idWDLabel
-        (MAX(?idWLM) as ?idWLM)
-        (MAX(?idCustode) as ?idCustode)
-        (MAX(?idCustodeLabel) as ?idCustodeLabel)
-        (MAX(?indirizzo) as ?indirizzo)
-        (MAX(?coord) as ?coord)
-        (MAX(?telefono) as ?telefono)
-        (MAX(?email) as ?email)
-        (MAX(?sitoweb) as ?sitoweb)
-        (MAX(?immagine) as ?immagine)
-        (MAX(?commons) as ?commons)
+SELECT ?idWD ?idWDLabel
+        (SAMPLE(?xidWLM) as ?idWLM)
+        (SAMPLE(?xidCustode) as ?idCustode)
+        (SAMPLE(?xidCustodeLabel) as ?idCustodeLabel)
+        (SAMPLE(?xindirizzo) as ?indirizzo)
+        (SAMPLE(?xcoord) as ?coord)
+        (SAMPLE(?xtelefono) as ?telefono)
+        (SAMPLE(?xemail) as ?email)
+        (SAMPLE(?xsitoweb) as ?sitoweb)
+        (SAMPLE(?ximmagine) as ?immagine)
+        (SAMPLE(?xcommons) as ?commons)
     WHERE {
         ?idWD wdt:P131 wd:{{wd}} .
-        OPTIONAL { ?idWD wdt:P969 ?indirizzo . }
-        OPTIONAL { ?idWD wdt:P625 ?coord . }
-        OPTIONAL { ?idWD wdt:P1329 ?telefono . }
-        OPTIONAL { ?idWD wdt:P968 ?email . }
-        OPTIONAL { ?idWD wdt:P856 ?sitoweb . }
-        OPTIONAL { ?idWD wdt:P18 ?immagine . }
-        OPTIONAL { ?idWD wdt:P373 ?commons . }
+        OPTIONAL { ?idWD wdt:P6375 ?xindirizzo . }
+        OPTIONAL { ?idWD wdt:P625 ?xcoord . }
+        OPTIONAL { ?idWD wdt:P1329 ?xtelefono . }
+        OPTIONAL { ?idWD wdt:P968 ?xemail . }
+        OPTIONAL { ?idWD wdt:P856 ?xsitoweb . }
+        OPTIONAL { ?idWD wdt:P18 ?ximmagine . }
+        OPTIONAL { ?idWD wdt:P373 ?xcommons . }
 
         OPTIONAL {
-            VALUES ?custode { wdt:P708 wdt:127 }
-            ?idWD ?custode ?idCustode
+            VALUES ?custode { wdt:P127 wdt:P708 }
+            ?idWD ?custode ?xidCustode
+            SERVICE wikibase:label {
+              bd:serviceParam wikibase:language "it,en".
+              ?xidCustode schema:name ?xidCustodeLabel
+            }
         }
 
-        { ?idWD wdt:P2186 ?idWLM . } UNION
+        { ?idWD wdt:P2186 ?xidWLM . } UNION
         { ?idWD wdt:P1435 wd:Q26971668 .
-            MINUS { ?idWD wdt:P2186 ?idWLM . }
+            MINUS { ?idWD wdt:P2186 ?xidWLM . }
         }
 
         SERVICE wikibase:label { bd:serviceParam wikibase:language "it,en". }
